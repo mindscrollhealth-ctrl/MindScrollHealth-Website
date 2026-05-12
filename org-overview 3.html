@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MindScroll Health — Organization Overview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.65;
+    color: #1a1a2e;
+    background: #fff;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 44px 48px 60px;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 3px solid #2d6a9f;
+    padding-bottom: 16px;
+    margin-bottom: 28px;
+    gap: 24px;
+  }
+
+  .header-left h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.15;
+  }
+
+  .header-left .tagline {
+    font-size: 10pt;
+    color: #2d6a9f;
+    font-weight: 500;
+    margin-top: 5px;
+    letter-spacing: 0.03em;
+  }
+
+  .header-right {
+    text-align: right;
+    font-size: 9pt;
+    color: #666;
+    line-height: 1.8;
+    white-space: nowrap;
+  }
+
+  .header-right a { color: #2d6a9f; text-decoration: none; }
+
+  /* ── Section headings ── */
+  h2 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #2d6a9f;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-top: 26px;
+    margin-bottom: 9px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #dde8f2;
+  }
+
+  p { margin-bottom: 10px; color: #2a2a3e; }
+
+  /* ── Thesis box ── */
+  .thesis {
+    background: #eef5fc;
+    border-left: 4px solid #2d6a9f;
+    padding: 13px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 18px 0;
+  }
+
+  .thesis p {
+    margin: 0;
+    font-size: 10.5pt;
+    color: #1a3a5c;
+    font-style: italic;
+  }
+
+  /* ── Two column grid ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0;
+  }
+
+  .item-box {
+    background: #f7f9fc;
+    border: 1px solid #c8d8ea;
+    border-radius: 7px;
+    padding: 12px 15px;
+  }
+
+  .item-box h3 {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 5px;
+  }
+
+  .item-box p {
+    margin: 0;
+    font-size: 9.5pt;
+    color: #3a4a5c;
+  }
+
+  /* ── Roadmap ── */
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .phase {
+    border: 1px solid #c8d8ea;
+    border-radius: 7px;
+    padding: 10px 12px;
+    background: #f7f9fc;
+    text-align: center;
+  }
+
+  .phase .label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #2d6a9f;
+    margin-bottom: 4px;
+  }
+
+  .phase .status-now { color: #1a7a4a; font-weight: 700; font-size: 8pt; }
+  .phase .status-next { color: #b06000; font-size: 8pt; }
+  .phase .status-future { color: #888; font-size: 8pt; }
+
+  .phase p {
+    margin: 0;
+    font-size: 9pt;
+    color: #2a2a3e;
+    line-height: 1.4;
+  }
+
+  /* ── Source list ── */
+  .sources {
+    font-size: 8.5pt;
+    color: #555;
+    line-height: 1.7;
+    margin-top: 10px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 36px;
+    padding-top: 12px;
+    border-top: 1px solid #dde8f2;
+    font-size: 8.5pt;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .footer a { color: #2d6a9f; text-decoration: none; }
+
+  @media print {
+    body { padding: 28px 36px; }
+    .roadmap { break-inside: avoid; }
+    .two-col { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>MindScroll Health</h1>
+    <div class="tagline">Research-grounded psychoeducation on social media and adolescent wellbeing</div>
+  </div>
+  <div class="header-right">
+    mindscrollhealth@gmail.com<br>
+    <a href="https://mindscrollhealth-log.vercel.app">mindscrollhealth-log.vercel.app</a>
+  </div>
+</div>
+
+<!-- WHAT WE ARE -->
+<h2>What MindScroll Is</h2>
+<p>MindScroll Health is a research-oriented psychoeducational organization focused on social media's effects on adolescent mental health. We differ from general digital wellness initiatives in a specific way: rather than treating social media exposure as a uniform variable, we focus on <em>pattern of use</em> and <em>pre-existing vulnerability</em> as the primary operative mechanisms — the variables that research consistently identifies as most predictive of harm, and the variables that most current interventions fail to address.</p>
+
+<!-- THESIS -->
+<h2>Our Core Thesis</h2>
+<div class="thesis">
+  <p>Passive, comparison-driven consumption — not total screen time — is one of the primary mechanisms behind most negative mental health outcomes related to social media use. Pre-existing vulnerabilities determine the extent to which any individual is affected. Effective interventions must be personalized to an individual's specific use pattern and risk profile, not calibrated to duration alone.</p>
+</div>
+
+<!-- WHAT WE HAVE BUILT -->
+<h2>What We Have Built</h2>
+<div class="two-col">
+  <div class="item-box">
+    <h3>📄 Peer-Reviewed Literature Review</h3>
+    <p>A 32-source review examining depression and anxiety, self-esteem and body image, suicidal ideation, sleep disruption, and cyberbullying — submitted for publication. Draws on studies from 2000–2024 including longitudinal analyses, systematic reviews, and national health advisories.</p>
+  </div>
+  <div class="item-box">
+    <h3>📊 Personalized Assessment System</h3>
+    <p>Two structured assessments that analyze individual social media use patterns across four domains — sleep disruption, social comparison, compulsive use, and academic and emotional impact — and deliver research-grounded, personalized feedback by email.</p>
+  </div>
+  <div class="item-box">
+    <h3>📱 Social Media Usage Tracker</h3>
+    <p>A live web-based tool allowing adolescents to log and reflect on their social media patterns over time, building self-awareness around the specific behaviors — not raw hours — that research identifies as most consequential.</p>
+  </div>
+  <div class="item-box">
+    <h3>📚 Science-Backed Explainer Documents</h3>
+    <p>Plain-language documents translating the academic research into accessible formats for adolescents, caregivers, and school counselors — covering passive vs. active use, the role of vulnerability, and evidence-based strategies for each pattern type.</p>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<h2>Where We Are Headed</h2>
+<div class="roadmap">
+  <div class="phase">
+    <div class="label">Now</div>
+    <div class="status-now">✓ Complete</div>
+    <p>Literature review, assessments, tracker, explainer docs, website foundation</p>
+  </div>
+  <div class="phase">
+    <div class="label">Next</div>
+    <div class="status-next">In Progress</div>
+    <p>Team building, literature review publication, website launch</p>
+  </div>
+  <div class="phase">
+    <div class="label">Near Term</div>
+    <div class="status-future">Planned</div>
+    <p>Online workshops for adolescents and educators; partnership outreach</p>
+  </div>
+  <div class="phase">
+    <div class="label">Long Term</div>
+    <div class="status-future">Planned</div>
+    <p>Longitudinal study examining passive use patterns and wellbeing outcomes</p>
+  </div>
+</div>
+
+<!-- WHAT PARTNERS GET -->
+<h2>What Partnership With MindScroll Looks Like</h2>
+<p>MindScroll offers school districts, counseling programs, and mental health organizations a free, research-grounded psychoeducational tool designed to help identify adolescents whose <em>pattern</em> of social media use — not merely their total usage — places them at elevated risk. Our assessments generate no identifying data and are designed for use alongside, not in replacement of, professional mental health support. We are actively seeking faculty advisors, clinical consultants, and organizational partners aligned with evidence-based approaches to adolescent digital wellbeing.</p>
+
+<!-- KEY SOURCES -->
+<h2>Research Foundation</h2>
+<div class="sources">
+  Twenge et al. (2018) — Clinical Psychological Science — n=506,820 &nbsp;|&nbsp;
+  Orben &amp; Przybylski (2019) — Nature Human Behaviour — n=355,358 &nbsp;|&nbsp;
+  Valkenburg, Meier &amp; Beyens (2022) — Umbrella Review, 25 studies &nbsp;|&nbsp;
+  Verduyn et al. (2015) — Passive vs. active use, wellbeing outcomes &nbsp;|&nbsp;
+  Scott et al. (2019) — Sleep disruption, n=11,872 &nbsp;|&nbsp;
+  Kowalski et al. (2014) — Cyberbullying meta-analysis, n=196,000+ &nbsp;|&nbsp;
+  Marchant et al. (2017) — Suicidal ideation systematic review &nbsp;|&nbsp;
+  Keles, McCrae &amp; Grealish (2020) — Depression and anxiety systematic review
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span><strong>MindScroll Health</strong> &nbsp;·&nbsp; mindscrollhealth@gmail.com &nbsp;·&nbsp; <a href="https://mindscrollhealth-log.vercel.app">mindscrollhealth-log.vercel.app</a></span>
+  <span style="text-align:right; color:#aaa;">MindScroll Health is a psychoeducational organization.<br>Not a clinical service. Not a substitute for professional care.</span>
+</div>
+
+</body>
+</html>
