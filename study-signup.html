@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Our Study — MindScroll Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0SEWRNQB99"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0SEWRNQB99',{anonymize_ip:true});</script>
+<style>
+:root{
+  --ink:#0e1117;--ink-2:#2c3140;--ink-3:#5c6272;--ink-4:#9aa0af;
+  --paper:#f8f6f1;--paper-2:#f1ede4;--white:#fff;
+  --navy:#162847;--navy-mid:#1e3d6e;--navy-xlt:#edf3fc;
+  --gold:#b8893a;--gold-xlt:#fdf7ec;
+  --sage:#3d7a5e;--sage-light:#dff0e8;
+  --border:rgba(14,17,23,.09);--border-md:rgba(14,17,23,.14);
+  --r:10px;--r-lg:16px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Syne',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;}
+a{text-decoration:none;color:inherit;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(248,246,241,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Lora',serif;font-size:16px;font-weight:700;color:var(--ink);}
+.nav-logo span{color:var(--navy-mid);}
+.nav-back{font-size:12.5px;font-weight:500;color:var(--ink-3);display:flex;align-items:center;gap:5px;}
+.nav-back:hover{color:var(--navy-mid);}
+.nav-back svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+
+.shell{max-width:640px;margin:0 auto;padding:100px 24px 80px;}
+
+.hero{text-align:center;margin-bottom:48px;}
+.hero h1{font-family:'Lora',serif;font-size:clamp(28px,4.5vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;}
+.hero h1 em{font-style:italic;color:var(--navy-mid);}
+.hero p{font-size:15px;color:var(--ink-2);line-height:1.75;max-width:480px;margin:0 auto;}
+
+.what-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;margin-bottom:28px;}
+.what-box h2{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:16px;}
+.step-row{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);}
+.step-row:last-child{border-bottom:none;}
+.step-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--navy-mid);background:var(--navy-xlt);width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:500;}
+.step-text{font-size:14px;color:var(--ink-2);line-height:1.6;}
+.step-text strong{color:var(--ink);font-weight:600;}
+
+.info-strip{background:var(--sage-light);border:1px solid rgba(61,122,94,.2);border-radius:var(--r-lg);padding:16px 20px;margin-bottom:28px;display:flex;gap:12px;align-items:flex-start;}
+.info-strip svg{width:18px;height:18px;stroke:var(--sage);fill:none;stroke-width:1.8;flex-shrink:0;margin-top:2px;}
+.info-strip p{font-size:13px;color:#2a5a45;line-height:1.65;}
+.info-strip strong{font-weight:600;}
+
+.form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;margin-bottom:28px;}
+.form-card h2{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.form-sub{font-size:13px;color:var(--ink-3);margin-bottom:24px;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-2);margin-bottom:6px;}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 14px;border:1.5px solid var(--border-md);border-radius:8px;
+  font-family:'Syne',sans-serif;font-size:14px;color:var(--ink);background:var(--paper);outline:none;
+  transition:border-color .18s,box-shadow .18s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navy-mid);box-shadow:0 0 0 3px rgba(30,61,110,.1);}
+.field textarea{height:80px;resize:vertical;line-height:1.55;}
+.field select{appearance:none;cursor:pointer;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.radio-group{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.radio-opt{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-2);cursor:pointer;padding:8px 12px;border:1.5px solid var(--border-md);border-radius:8px;transition:all .15s;}
+.radio-opt:hover{border-color:var(--navy-mid);color:var(--navy-mid);}
+.radio-opt.sel{background:var(--navy-xlt);border-color:var(--navy-mid);color:var(--navy-mid);}
+.radio-dot{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
+.radio-opt.sel .radio-dot{background:var(--navy-mid);border-color:var(--navy-mid);}
+.radio-dot-inner{width:6px;height:6px;border-radius:50%;background:#fff;opacity:0;transition:opacity .15s;}
+.radio-opt.sel .radio-dot-inner{opacity:1;}
+
+.submit-btn{
+  width:100%;padding:14px;border-radius:9px;border:none;cursor:pointer;
+  background:var(--navy);color:#fff;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  transition:background .18s,transform .15s,box-shadow .2s;
+}
+.submit-btn:hover{background:var(--navy-mid);transform:translateY(-2px);box-shadow:0 8px 24px rgba(22,40,71,.28);}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.success-msg{display:none;text-align:center;padding:40px 20px;background:var(--sage-light);border:1px solid rgba(61,122,94,.2);border-radius:var(--r-lg);margin-bottom:28px;}
+.success-msg h2{font-family:'Lora',serif;font-size:22px;font-weight:700;color:var(--sage);margin-bottom:8px;}
+.success-msg p{font-size:14px;color:#2a5a45;line-height:1.7;}
+
+.disclaimer{font-size:12px;color:var(--ink-4);line-height:1.7;padding:16px 20px;background:var(--paper-2);border:1px solid var(--border);border-radius:var(--r-lg);}
+.disclaimer strong{color:var(--ink-3);}
+
+.faq{margin-top:28px;}
+.faq h2{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:16px;}
+.faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:10px;}
+.faq-q{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.faq-a{font-size:13px;color:var(--ink-3);line-height:1.65;}
+
+.foot{text-align:center;padding:32px 24px;border-top:1px solid var(--border);margin-top:40px;font-size:12px;color:var(--ink-4);}
+.foot a{color:var(--navy-mid);}
+
+@media(max-width:600px){
+  nav{padding:0 16px;}
+  .shell{padding:80px 16px 56px;}
+  .field-row{grid-template-columns:1fr;}
+  .form-card{padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Mind<span>Scroll</span> Health</a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to site
+  </a>
+</nav>
+
+<div class="shell">
+  <div class="hero">
+    <h1>Help us find out if this <em>actually works.</em></h1>
+    <p>We built tools based on what the research says. Now we need to test whether they make a difference. That's what this study is for.</p>
+  </div>
+
+  <div class="what-box">
+    <h2>What you'd actually do</h2>
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Take one assessment today</strong> — the Passive vs. Active Use assessment or the General Wellbeing assessment. Takes about 4-5 minutes. Done right here on the site, nothing stored anywhere.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Try the strategies for 3 weeks</strong> — based on your results, you'll get specific strategies for your pattern. Use them however works for you. No check-ins, no meetings.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Retake the same assessment</strong> — we'll reach out after 3 weeks with a link. Take the same assessment again. That's it.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>Fill out a short feedback form</strong> — tell us what worked, what didn't, and what you'd change. Takes about 2 minutes. Your honest feedback matters more to us than positive feedback.</div>
+    </div>
+  </div>
+
+  <div class="info-strip">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <p><strong>About your data:</strong> We collect your email or Discord handle only so we can send you the follow-up link in 3 weeks. Assessment responses are scored in your browser and never sent to us. The only data we see is your pre/post scores (not individual answers) and your feedback. We don't share anything with anyone.</p>
+  </div>
+
+  <!-- SIGN UP FORM -->
+  <div class="form-card" id="signup-form">
+    <h2>Sign up for the study</h2>
+    <p class="form-sub">Takes about 30 seconds. We'll reach out in 3 weeks with the follow-up.</p>
+
+    <div class="field-row">
+      <div class="field">
+        <label>First name (or nickname)</label>
+        <input type="text" id="s-name" placeholder="What should we call you?">
+      </div>
+      <div class="field">
+        <label>Age range</label>
+        <select id="s-age">
+          <option value="">Select</option>
+          <option>13-14</option>
+          <option>15-16</option>
+          <option>17-18</option>
+          <option>19-22</option>
+          <option>23+</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Best way to reach you for the follow-up</label>
+      <div class="radio-group" id="contact-method">
+        <div class="radio-opt" onclick="pickRadio(this,'contact-method','Email')">
+          <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+          Email
+        </div>
+        <div class="radio-opt" onclick="pickRadio(this,'contact-method','Discord')">
+          <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+          Discord
+        </div>
+        <div class="radio-opt" onclick="pickRadio(this,'contact-method','Instagram')">
+          <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+          Instagram DM
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Your email, Discord username, or Instagram handle</label>
+      <input type="text" id="s-contact" placeholder="So we can send the follow-up in 3 weeks">
+    </div>
+
+    <div class="field">
+      <label>Which assessment do you want to start with?</label>
+      <div class="radio-group" id="assessment-choice">
+        <div class="radio-opt" onclick="pickRadio(this,'assessment-choice','Passive vs. Active Use')">
+          <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+          Passive vs. Active Use (13 questions)
+        </div>
+        <div class="radio-opt" onclick="pickRadio(this,'assessment-choice','General Wellbeing')">
+          <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+          General Wellbeing (14 questions)
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Anything else you want us to know? (optional)</label>
+      <textarea id="s-notes" placeholder="Totally optional — why you're interested, what you're hoping to learn, etc."></textarea>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitSignup()">Sign Up for the Study</button>
+  </div>
+
+  <div class="success-msg" id="success-msg">
+    <h2>You're in.</h2>
+    <p>Thanks for signing up. Your email client should open with your sign-up info pre-filled — hit send and we'll take it from there. We'll reach out in 3 weeks with the follow-up link.</p>
+    <p style="margin-top:14px;"><a href="assess.html" style="color:var(--sage);font-weight:600;text-decoration:underline;text-underline-offset:3px;">Take your first assessment now →</a></p>
+  </div>
+
+  <div class="disclaimer">
+    <strong>About this study:</strong> This is a psychoeducational pilot study, not a clinical trial. We are not collecting protected health information. Participation is voluntary and you can withdraw at any time by emailing us. This study is not affiliated with any university or institution at this time. Results will be used to evaluate and improve MindScroll resources and may inform future research partnerships. If you have questions, email mindscrollhealth@gmail.com.
+  </div>
+
+  <div class="faq">
+    <h2>Common questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">How much time does this take total?</div>
+      <div class="faq-a">About 15 minutes spread across 3 weeks — roughly 5 minutes for each assessment plus 2-3 minutes for the feedback form. No meetings, no check-ins, no ongoing commitment.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What data do you collect?</div>
+      <div class="faq-a">Just your name/handle (for follow-up), age range, and which assessment you took. Your actual assessment answers are scored in your browser and never sent to us. We see your overall scores at pre and post, and your feedback form — that's it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I have to use the strategies?</div>
+      <div class="faq-a">We'd like you to try them, but honestly, we also want to know what happens when people don't. So just be honest when you fill out the feedback form either way.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if I forget to do the follow-up?</div>
+      <div class="faq-a">We'll send you a reminder. If you still miss it, no problem — we won't chase you down. But the follow-up is the most important part for us, so we'd really appreciate it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is this an official research study?</div>
+      <div class="faq-a">Not yet. This is a pilot study to gather preliminary data before approaching university partners. We're being transparent about that because we think it matters.</div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <a href="index.html">MindScroll Health</a> · <a href="mailto:mindscrollhealth@gmail.com">mindscrollhealth@gmail.com</a> · No assessment data is stored
+</div>
+
+<script>
+let formData = { method: '', assessment: '' };
+
+function pickRadio(el, groupId, value) {
+  document.querySelectorAll('#' + groupId + ' .radio-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  if (groupId === 'contact-method') formData.method = value;
+  if (groupId === 'assessment-choice') formData.assessment = value;
+}
+
+function submitSignup() {
+  const name = document.getElementById('s-name').value.trim();
+  const age = document.getElementById('s-age').value;
+  const contact = document.getElementById('s-contact').value.trim();
+  const notes = document.getElementById('s-notes').value.trim();
+
+  if (!name || !age || !formData.method || !contact || !formData.assessment) {
+    alert('Please fill in all required fields before signing up.');
+    return;
+  }
+
+  const subject = 'Study Sign-Up: ' + name;
+  const body = [
+    'MINDSCROLL HEALTH — LONGITUDINAL STUDY SIGN-UP',
+    '================================================',
+    '',
+    'Name: ' + name,
+    'Age range: ' + age,
+    'Contact method: ' + formData.method,
+    'Contact info: ' + contact,
+    'Assessment chosen: ' + formData.assessment,
+    'Notes: ' + (notes || '(none)'),
+    '',
+    'Sign-up date: ' + new Date().toLocaleDateString(),
+    'Follow-up due: ' + new Date(Date.now() + 21 * 86400000).toLocaleDateString(),
+    '',
+    '--- Copy this into your participant tracking sheet ---'
+  ].join('\n');
+
+  window.location.href = 'mailto:mindscrollhealth@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+  document.getElementById('signup-form').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+
+  if (typeof gtag === 'function') gtag('event', 'study_signup', { assessment: formData.assessment, age_range: age });
+}
+
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+</script>
+</body>
+</html>

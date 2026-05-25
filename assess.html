@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assessments — MindScroll Health</title>
+<meta name="description" content="Three free assessments on your social media patterns. Scored in your browser. No data stored, no account needed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 — replace G-0SEWRNQB99 with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0SEWRNQB99"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-0SEWRNQB99',{anonymize_ip:true,allow_google_signals:false,allow_ad_personalization_signals:false});
+function track(event,params){if(typeof gtag==='function')gtag('event',event,params||{});}
+</script>
+
+<style>
+/* ── TOKENS (match main site) ─────────────────── */
+:root{
+  --ink:#0e1117; --ink-2:#2c3140; --ink-3:#5c6272; --ink-4:#9aa0af;
+  --paper:#f8f6f1; --paper-2:#f1ede4; --white:#ffffff;
+  --navy:#162847; --navy-mid:#1e3d6e; --navy-xlt:#edf3fc; --navy-light:#d8e5f5;
+  --gold:#b8893a; --gold-xlt:#fdf7ec; --gold-light:#f9f0de;
+  --sage:#3d7a5e; --sage-light:#dff0e8;
+  --rose:#c0392b; --rose-light:#fef5f4;
+  --border:rgba(14,17,23,.09); --border-md:rgba(14,17,23,.14);
+  --r:10px; --r-lg:16px; --r-xl:24px;
+  --sh-sm:0 2px 8px rgba(14,17,23,.06);
+  --sh-md:0 8px 28px rgba(14,17,23,.1);
+  --sh-lg:0 20px 56px rgba(14,17,23,.14);
+}
+
+/* ── RESET ───────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Syne',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--paper-2);}
+::-webkit-scrollbar-thumb{background:var(--navy);border-radius:3px;}
+
+/* ── ANIMATIONS ─────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideIn{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideOut{to{opacity:0;transform:translateX(-24px);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);}}
+@keyframes barFill{from{width:0}to{width:var(--target-w,0%)}}
+@keyframes popIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+
+/* ── NAV ─────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:60px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  background:rgba(248,246,241,.96);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:var(--sh-sm);}
+.nav-logo{font-family:'Lora',serif;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer;}
+.nav-logo:hover{opacity:.75;}
+.nav-logo span{color:var(--navy-mid);}
+.nav-badge{
+  display:flex;align-items:center;gap:5px;
+  font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;
+  color:var(--sage);background:var(--sage-light);
+  border:1px solid rgba(61,122,94,.2);padding:4px 11px;border-radius:100px;
+}
+.nav-badge svg{width:9px;height:9px;stroke:var(--sage);fill:none;stroke-width:2.5;stroke-linecap:round;}
+.nav-back{
+  display:flex;align-items:center;gap:5px;
+  font-size:12.5px;font-weight:500;color:var(--ink-3);
+  transition:color .18s;
+}
+.nav-back:hover{color:var(--navy-mid);}
+.nav-back svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+
+/* ── SCREEN SYSTEM ──────────────────────────── */
+.screen{display:none;}
+.screen.active{display:block;animation:fadeUp .38s cubic-bezier(.22,1,.36,1) both;}
+
+/* ════════════════════════════════════════════════
+   SCREEN: SELECTOR
+════════════════════════════════════════════════ */
+.sel-shell{max-width:660px;margin:0 auto;padding:88px 24px 72px;}
+
+.sel-hero{text-align:center;margin-bottom:40px;}
+.sel-hero h1{
+  font-family:'Lora',serif;
+  font-size:clamp(28px,5vw,46px);
+  font-weight:700;line-height:1.1;letter-spacing:-.025em;
+  color:var(--ink);margin-bottom:14px;
+}
+.sel-hero h1 em{font-style:italic;color:var(--navy-mid);}
+.sel-hero p{font-size:15px;color:var(--ink-2);max-width:440px;margin:0 auto;line-height:1.72;}
+
+/* Privacy notice */
+.privacy-bar{
+  display:flex;align-items:flex-start;gap:12px;
+  background:var(--sage-light);border:1px solid rgba(61,122,94,.2);
+  border-radius:var(--r-lg);padding:14px 18px;margin-bottom:28px;
+  font-size:13px;color:#1e4a34;line-height:1.62;
+}
+.privacy-bar svg{width:18px;height:18px;stroke:#3d7a5e;fill:none;stroke-width:1.8;stroke-linecap:round;flex-shrink:0;margin-top:1px;}
+
+/* Assessment cards */
+.sel-cards{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;}
+.sel-card{
+  background:var(--white);border:1.5px solid var(--border-md);border-radius:var(--r-lg);
+  padding:22px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:border-color .2s,transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s;
+}
+.sel-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  transform:scaleY(0);transform-origin:bottom;transition:transform .28s cubic-bezier(.22,1,.36,1);
+}
+.c1::before{background:var(--navy-mid);}
+.c2::before{background:var(--gold);}
+.c3::before{background:var(--sage);}
+.sel-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.c1:hover{border-color:var(--navy-mid);}
+.c2:hover{border-color:var(--gold);}
+.c3:hover{border-color:var(--sage);}
+.sel-card:hover::before{transform:scaleY(1);}
+.sel-icon{
+  width:48px;height:48px;border-radius:11px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.si1{background:var(--navy-xlt);}
+.si2{background:var(--gold-xlt);}
+.si3{background:var(--sage-light);}
+.sel-body{flex:1;}
+.sel-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-4);margin-bottom:5px;}
+.sel-title{font-family:'Lora',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.25;}
+.sel-desc{font-size:13px;color:var(--ink-3);line-height:1.55;}
+.sel-arrow{width:16px;height:16px;stroke:var(--ink-4);fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;transition:transform .2s,stroke .2s;}
+.sel-card:hover .sel-arrow{transform:translateX(5px);stroke:var(--navy-mid);}
+
+/* Disclaimer strip */
+.disc-strip{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:14px 18px;display:flex;gap:12px;align-items:flex-start;
+}
+.disc-strip svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;flex-shrink:0;margin-top:2px;}
+.disc-strip p{font-size:12.5px;color:var(--ink-3);line-height:1.65;}
+.disc-strip strong{color:var(--ink-2);}
+
+/* ════════════════════════════════════════════════
+   SCREEN: QUESTIONS
+════════════════════════════════════════════════ */
+.q-shell{max-width:620px;margin:0 auto;padding:80px 24px 72px;}
+
+/* Progress bar */
+.q-progress{margin-bottom:36px;}
+.q-prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
+.q-prog-name{font-family:'Lora',serif;font-size:15px;font-weight:700;color:var(--ink);}
+.q-prog-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-4);}
+.q-prog-track{height:3px;background:var(--border-md);border-radius:2px;overflow:hidden;}
+.q-prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--navy-mid),var(--gold));transition:width .5s cubic-bezier(.22,1,.36,1);}
+
+/* Question frame */
+#q-area{position:relative;min-height:300px;}
+.q-frame{animation:slideIn .3s cubic-bezier(.22,1,.36,1) both;}
+.q-frame.out{animation:slideOut .2s ease forwards;}
+
+.q-num{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--ink-4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+.q-phase-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 12px;border-radius:100px;margin-bottom:14px;
+}
+.phase-before{background:var(--navy-xlt);color:var(--navy-mid);}
+.phase-after{background:var(--sage-light);color:var(--sage);}
+.phase-pip{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.8s infinite;}
+
+.q-text{
+  font-family:'Lora',serif;
+  font-size:clamp(17px,2.8vw,23px);
+  font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:6px;
+}
+.q-note{font-size:13px;color:var(--ink-4);margin-bottom:22px;line-height:1.55;}
+
+/* Likert scale */
+.scale-wrap{margin-bottom:28px;}
+.scale-ends{display:flex;justify-content:space-between;margin-bottom:9px;}
+.scale-end{font-size:11px;color:var(--ink-4);}
+.scale-row{display:flex;gap:8px;}
+.scale-btn{
+  flex:1;height:52px;border:1.5px solid var(--border-md);border-radius:var(--r);
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:600;color:var(--ink-3);
+  background:var(--white);cursor:pointer;
+  transition:all .18s cubic-bezier(.22,1,.36,1);
+}
+.scale-btn:hover:not(.picked){border-color:rgba(30,61,110,.3);color:var(--navy-mid);transform:translateY(-3px);box-shadow:0 4px 14px rgba(30,61,110,.1);}
+.scale-btn.picked{background:var(--navy-mid);border-color:var(--navy-mid);color:#fff;transform:translateY(-4px);box-shadow:0 7px 20px rgba(30,61,110,.3);}
+
+/* Frequency scale */
+.freq-wrap{display:flex;flex-direction:column;gap:9px;margin-bottom:28px;}
+.freq-btn{
+  width:100%;padding:13px 16px;border:1.5px solid var(--border-md);border-radius:var(--r);
+  text-align:left;font-family:'Syne',sans-serif;font-size:13.5px;font-weight:500;
+  color:var(--ink-2);background:var(--white);cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+  transition:all .18s cubic-bezier(.22,1,.36,1);
+}
+.freq-btn:hover:not(.picked){border-color:rgba(30,61,110,.28);color:var(--navy-mid);transform:translateX(4px);}
+.freq-btn.picked{background:var(--navy-xlt);border-color:var(--navy-mid);color:var(--navy-mid);}
+.freq-dot{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.freq-btn.picked .freq-dot{background:var(--navy-mid);border-color:var(--navy-mid);}
+.freq-dot-inner{width:7px;height:7px;border-radius:50%;background:#fff;opacity:0;transform:scale(0);transition:all .18s;}
+.freq-btn.picked .freq-dot-inner{opacity:1;transform:scale(1);}
+
+/* Mood slider */
+.mood-wrap{text-align:center;margin-bottom:28px;}
+.mood-emoji{font-size:46px;display:block;margin-bottom:8px;transition:transform .15s;}
+.mood-num{font-family:'Lora',serif;font-size:48px;font-weight:700;color:var(--navy-mid);line-height:1;margin-bottom:4px;}
+.mood-sub{font-size:12px;color:var(--ink-4);margin-bottom:18px;}
+input[type=range].mood-slider{
+  -webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer;
+  background:linear-gradient(90deg,var(--rose-light) 0%,var(--paper-2) 50%,var(--sage-light) 100%);
+}
+input[type=range].mood-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;width:26px;height:26px;border-radius:50%;
+  background:var(--navy-mid);cursor:pointer;
+  box-shadow:0 3px 10px rgba(30,61,110,.35);transition:transform .14s;
+}
+input[type=range].mood-slider::-webkit-slider-thumb:hover{transform:scale(1.15);}
+.mood-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-4);margin-top:7px;}
+
+/* Break screen */
+.break-wrap{text-align:center;padding:16px 0;}
+.break-icon{font-size:52px;margin-bottom:16px;}
+.break-title{font-family:'Lora',serif;font-size:21px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.3;}
+.break-body{font-size:14px;color:var(--ink-3);line-height:1.72;max-width:360px;margin:0 auto 28px;}
+
+/* Nav buttons */
+.q-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;}
+.btn-back{
+  display:flex;align-items:center;gap:6px;
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:500;color:var(--ink-3);
+  padding:10px 16px;border:1.5px solid var(--border-md);border-radius:var(--r);
+  background:transparent;cursor:pointer;transition:all .18s;
+}
+.btn-back:hover{border-color:var(--ink-2);color:var(--ink-2);}
+.btn-back svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+.btn-next{
+  display:flex;align-items:center;gap:8px;margin-left:auto;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;
+  padding:13px 28px;border-radius:var(--r);background:var(--navy);
+  border:none;cursor:pointer;
+  transition:all .22s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 4px 14px rgba(22,40,71,.18);
+}
+.btn-next:hover:not(:disabled){background:var(--navy-mid);transform:translateY(-2px);box-shadow:0 8px 22px rgba(22,40,71,.3);}
+.btn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-next svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;transition:transform .2s;}
+.btn-next:hover:not(:disabled) svg{transform:translateX(4px);}
+
+/* ════════════════════════════════════════════════
+   SCREEN: LOADING
+════════════════════════════════════════════════ */
+.load-wrap{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:calc(100vh - 60px);padding:24px;text-align:center;
+}
+.spinner{
+  width:46px;height:46px;border-radius:50%;
+  border:3px solid var(--border-md);border-top-color:var(--navy-mid);
+  animation:spin .8s linear infinite;margin-bottom:22px;
+}
+.load-title{font-family:'Lora',serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:7px;}
+.load-sub{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--ink-4);letter-spacing:.04em;}
+.load-steps{margin-top:28px;display:flex;flex-direction:column;gap:10px;}
+.load-step{
+  font-size:13px;color:var(--ink-4);
+  display:flex;align-items:center;gap:8px;
+  opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;
+}
+.load-step.show{opacity:1;transform:translateY(0);}
+.load-step svg{width:14px;height:14px;stroke:var(--sage);fill:none;stroke-width:2.2;stroke-linecap:round;flex-shrink:0;}
+
+/* ════════════════════════════════════════════════
+   SCREEN: RESULTS
+════════════════════════════════════════════════ */
+.res-shell{max-width:680px;margin:0 auto;padding:80px 24px 72px;}
+
+/* Header card */
+.res-header{
+  background:var(--navy);border-radius:var(--r-xl);
+  padding:34px 34px 30px;margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.res-header::before{
+  content:'';position:absolute;top:-70px;right:-50px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(30,61,110,.9) 0%,transparent 70%);pointer-events:none;
+}
+.res-header::after{
+  content:'';position:absolute;bottom:-50px;left:20px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(184,137,58,.12) 0%,transparent 70%);pointer-events:none;
+}
+.res-hdr{position:relative;z-index:1;}
+.res-eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;}
+.res-title{font-family:'Lora',serif;font-size:clamp(19px,3vw,27px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:7px;}
+.res-sub{font-size:13.5px;color:rgba(255,255,255,.58);line-height:1.65;margin-bottom:20px;}
+
+/* Score chips */
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px;}
+.chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:11px 13px;}
+.chip-label{font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:5px;letter-spacing:.02em;}
+.chip-val{font-family:'DM Mono',monospace;font-size:16px;font-weight:500;color:#fff;margin-bottom:5px;}
+.chip-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+.chip-fill{height:100%;border-radius:2px;width:0;transition:width 1s .3s cubic-bezier(.22,1,.36,1);}
+.c-low{background:#27ae60;} .c-mid{background:#e67e22;} .c-hi{background:#c0392b;} .c-blue{background:#93b8e8;} .c-gold{background:var(--gold);}
+
+/* Result sections */
+.res-body{display:flex;flex-direction:column;gap:16px;margin-bottom:20px;}
+.res-sec{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:26px 28px;animation:popIn .35s cubic-bezier(.22,1,.36,1) both;
+}
+.res-sec h3{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:11px;line-height:1.3;}
+.res-sec p{font-size:14px;color:var(--ink-2);line-height:1.78;margin-bottom:9px;}
+.res-sec p:last-child{margin-bottom:0;}
+.res-sec em{font-style:italic;color:var(--ink-3);}
+.res-sec strong{font-weight:600;color:var(--ink);}
+
+.strat-list{list-style:none;padding:0;margin:12px 0 0;}
+.strat-list li{
+  background:var(--paper);border-left:3px solid var(--navy-mid);
+  border-radius:0 var(--r) var(--r) 0;
+  padding:12px 15px;margin-bottom:8px;
+  font-size:13.5px;color:var(--ink-2);line-height:1.68;
+}
+.strat-list li:last-child{margin-bottom:0;}
+
+/* Alert boxes */
+.alert{border-radius:var(--r);padding:14px 16px;font-size:13.5px;line-height:1.65;margin-bottom:0;}
+.al-good{background:var(--sage-light);border:1px solid rgba(61,122,94,.22);color:#1e4a34;}
+.al-warn{background:var(--gold-xlt);border:1px solid rgba(184,137,58,.25);color:#6b4a00;}
+.al-info{background:var(--navy-xlt);border:1px solid rgba(30,61,110,.18);color:var(--navy-mid);}
+.al-neutral{background:var(--paper-2);border:1px solid var(--border-md);color:var(--ink-3);}
+
+/* Cite box */
+.cite{background:var(--paper-2);border-radius:var(--r);padding:10px 14px;margin-top:11px;font-family:'DM Mono',monospace;font-size:11.5px;color:var(--ink-4);line-height:1.6;letter-spacing:.02em;}
+
+/* Result actions */
+.res-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+.btn-restart{
+  flex:1;min-width:140px;padding:12px;border-radius:var(--r);
+  font-family:'Syne',sans-serif;font-size:13.5px;font-weight:600;color:var(--ink-2);
+  background:transparent;border:1.5px solid var(--border-md);cursor:pointer;transition:all .18s;
+}
+.btn-restart:hover{border-color:var(--navy-mid);color:var(--navy-mid);}
+.btn-email{
+  flex:1;min-width:140px;padding:12px;border-radius:var(--r);
+  font-family:'Syne',sans-serif;font-size:13.5px;font-weight:600;color:#fff;
+  background:var(--navy);border:none;cursor:pointer;transition:background .18s;
+}
+.btn-email:hover{background:var(--navy-mid);}
+
+.final-disc{background:var(--paper-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 20px;font-size:12.5px;color:var(--ink-3);line-height:1.72;}
+.final-disc strong{color:var(--ink-2);}
+
+/* ── MOBILE ──────────────────────────────────── */
+@media(max-width:600px){
+  nav{padding:0 16px;}
+  .nav-badge{display:none;}
+
+  .sel-shell{padding:80px 16px 56px;}
+  .sel-hero h1{font-size:28px;}
+  .sel-card{padding:18px 16px;gap:12px;}
+  .sel-icon{width:40px;height:40px;font-size:18px;border-radius:10px;flex-shrink:0;}
+
+  .q-shell{padding:80px 16px 56px;}
+  .q-text{font-size:18px;}
+  .scale-btns{gap:6px;}
+  .scale-btn{height:44px;font-size:13px;}
+  .choice-btn{padding:12px 14px;font-size:13px;}
+
+  .res-shell{padding:80px 16px 56px;}
+  .res-hdr{padding:24px 20px;}
+  .score-grid{grid-template-columns:1fr 1fr;}
+  .res-sec{padding:20px 18px;}
+  .res-actions{flex-direction:column;}
+  .btn-restart,.btn-email{min-width:unset;width:100%;}
+
+  .loading-wrap{padding:80px 16px 56px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════════ -->
+<nav id="nav">
+  <a class="nav-logo" href="index.html">Mind<span>Scroll</span> Health</a>
+  <div class="nav-badge">
+    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    No data stored
+  </div>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to site
+  </a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 1 — SELECTOR
+════════════════════════════════════════════════════════════════ -->
+<div class="screen active" id="s-selector">
+  <div class="sel-shell">
+
+    <div class="sel-hero">
+      <h1>Three assessments.<br><em>Nothing leaves your device.</em></h1>
+      <p>Your responses are scored entirely in your browser. No account, no email required, no server involved. Feedback shows up instantly on screen.</p>
+    </div>
+
+    <div class="privacy-bar">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div><strong>Complete privacy:</strong> Nothing you type or select leaves your device. There are no servers receiving your answers. The scoring logic runs locally in JavaScript, and your results are generated from that — we never see any of it.</div>
+    </div>
+
+    <div class="sel-cards">
+
+      <div class="sel-card c1" onclick="begin('pva')" tabindex="0" onkeydown="if(event.key==='Enter')begin('pva')">
+        <div class="sel-icon si1">📊</div>
+        <div class="sel-body">
+          <div class="sel-tag">Assessment 01 · 13 questions · ~4 min</div>
+          <div class="sel-title">Passive vs. Active Use</div>
+          <div class="sel-desc">Are you scrolling more than you're actually connecting with anyone? This one figures out whether your habits lean passive or active and what that means based on the research.</div>
+        </div>
+        <svg class="sel-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+
+      <div class="sel-card c2" onclick="begin('general')" tabindex="0" onkeydown="if(event.key==='Enter')begin('general')">
+        <div class="sel-icon si2">🔍</div>
+        <div class="sel-body">
+          <div class="sel-tag">Assessment 02 · 14 questions · ~5 min</div>
+          <div class="sel-title">General Wellbeing Assessment</div>
+          <div class="sel-desc">A broader look at four areas — sleep, comparison, compulsive use, and academic and emotional impact. Tells you which domain is most relevant to you and what the research says about it.</div>
+        </div>
+        <svg class="sel-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+
+      <div class="sel-card c3" onclick="begin('postuse')" tabindex="0" onkeydown="if(event.key==='Enter')begin('postuse')">
+        <div class="sel-icon si3">🔄</div>
+        <div class="sel-body">
+          <div class="sel-tag">Assessment 03 · 2 phases · ~3 min</div>
+          <div class="sel-title">Post-Use Effects Check-In</div>
+          <div class="sel-desc">Rate your mood before you open social media, then again after you're done. One of the least-measured things in the research — use it any time, as many times as you want.</div>
+        </div>
+        <svg class="sel-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+
+    </div>
+
+    <div class="disc-strip">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p><strong>For educational purposes only.</strong> These aren't clinical assessments or diagnoses. They're psychoeducational tools — meaning they help you understand your patterns, not tell you what's medically wrong. If you're in significant distress, please call or text <strong>988</strong> (US) or talk to a licensed professional.</p>
+    </div>
+
+  </div>
+  <footer class="pg-foot">
+    <a href="index.html">MindScroll Health</a><span>·</span>
+    <a href="mailto:mindscrollhealth@gmail.com">mindscrollhealth@gmail.com</a><span>·</span>
+    <span>All processing happens in your browser. Nothing is collected.</span>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 2 — QUESTIONS
+════════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-questions">
+  <div class="q-shell">
+    <div class="q-progress">
+      <div class="q-prog-row">
+        <div class="q-prog-name" id="prog-name">Assessment</div>
+        <div class="q-prog-count" id="prog-count">1 / 13</div>
+      </div>
+      <div class="q-prog-track">
+        <div class="q-prog-fill" id="prog-fill" style="width:0%"></div>
+      </div>
+    </div>
+    <div id="q-area"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 3 — LOADING
+════════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-loading">
+  <div class="load-wrap">
+    <div class="spinner"></div>
+    <div class="load-title">Working out your results</div>
+    <div class="load-sub">Scoring against the research literature</div>
+    <div class="load-steps">
+      <div class="load-step" id="ls1"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Calculating domain scores</div>
+      <div class="load-step" id="ls2"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Identifying your primary pattern</div>
+      <div class="load-step" id="ls3"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Matching strategies from the literature</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 4 — RESULTS
+════════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-results">
+  <div class="res-shell">
+    <div id="res-content"></div>
+    <div class="res-actions">
+      <button class="btn-restart" onclick="goHome()">← Try Another Assessment</button>
+      <button class="btn-email" onclick="window.open('mailto:mindscrollhealth@gmail.com?subject=Assessment Question','_blank')">Email Us a Question</button>
+    </div>
+    <div class="final-disc">
+      <strong>Reminder:</strong> This feedback is for educational and psychoeducational purposes only — not a clinical assessment, diagnosis, or substitute for professional care. Scores reflect patterns in your self-reported answers compared to population-level research findings. They are not predictions about your individual mental health. If you're in significant distress, please call or text <strong>988</strong> (US) or contact a licensed mental health professional.
+    </div>
+  </div>
+  <footer class="pg-foot">
+    <a href="index.html">MindScroll Health</a><span>·</span>
+    <a href="mailto:mindscrollhealth@gmail.com">mindscrollhealth@gmail.com</a><span>·</span>
+    <span>No data was collected during this assessment.</span>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT — FULL ASSESSMENT ENGINE
+════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── HELPERS ────────────────────────────────── */
+const avg   = (...v) => v.reduce((a,b)=>a+b,0)/v.length;
+const rev   = v => 6-v;
+const clamp = (v,lo,hi) => Math.min(Math.max(v,lo),hi);
+const tier  = s => s<=2?'low':s<=3.2?'moderate':'high';
+const fc    = (s,mx) => { const p=s/mx; return p<=.4?'c-low':p<=.64?'c-mid':'c-hi'; };
+const MOODS = ['😞','😟','😕','🙁','😐','🙂','😊','😄','😁','🤩'];
+
+/* ── SCREEN MANAGEMENT ──────────────────────── */
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');s.style.display='none';});
+  const el=document.getElementById('s-'+id);
+  if(!el)return;
+  el.style.display='block';
+  void el.offsetWidth;
+  el.classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ── STATE ──────────────────────────────────── */
+let AID=null, ASM=null, QI=0, ANS={};
+
+/* ══════════════════════════════════════════════
+   ASSESSMENT DEFINITIONS
+══════════════════════════════════════════════ */
+const ASMS = {
+
+/* ── 01 PASSIVE VS ACTIVE ─────────────────── */
+pva:{
+  name:'Passive vs. Active Use',
+  qs:[
+    {id:'q1', text:'I scroll through social media without liking, commenting, or interacting.',         type:'likert'},
+    {id:'q2', text:'I open social media without a clear reason or goal.',                              type:'likert'},
+    {id:'q3', text:'I spend long periods watching others\' posts or videos endlessly.',                 type:'likert'},
+    {id:'q4', text:'I use social media to message or talk directly with friends.',                     type:'likert'},
+    {id:'q5', text:'I comment, post, or interact with others on social media.',                        type:'likert'},
+    {id:'q6', text:'I feel more connected to others after using social media.',                        type:'likert'},
+    {id:'q7', text:'I compare my life to what I see on social media.',                                 type:'likert'},
+    {id:'q8', text:'I feel worse about myself after using social media.',                              type:'likert'},
+    {id:'q9', text:'I feel left out when I see what others are doing on social media.',                type:'likert'},
+    {id:'q10',text:'I think others have better lives than me based on what I see online.',             type:'likert'},
+    {id:'q11',text:'I use social media more when I feel stressed, anxious, or down.',                  type:'likert'},
+    {id:'q12',text:'My mood before using social media affects how I feel afterwards.',                 type:'likert'},
+    {id:'q13',text:'I have trouble stopping even when I\'m not enjoying it.',                          type:'likert'},
+  ],
+  score(a){
+    const s=id=>a[id]||3;
+    const passive=avg(s('q1'),s('q2'),s('q3'));
+    const activeRaw=avg(s('q4'),s('q5'),s('q6'));
+    const activeRisk=avg(rev(s('q4')),rev(s('q5')),rev(s('q6')));
+    const comparison=avg(s('q7'),s('q8'),s('q9'),s('q10'));
+    const vulnerability=avg(s('q11'),s('q12'));
+    const problematic=s('q13');
+    const overall=avg(passive,activeRisk,comparison,vulnerability);
+    const profiles={passive,comparison,vulnerability,problematic};
+    const primary=Object.entries(profiles).sort((a,b)=>b[1]-a[1])[0][0];
+    return{passive,activeRaw,activeRisk,comparison,vulnerability,problematic,overall,primary};
+  }
+},
+
+/* ── 02 GENERAL WELLBEING ─────────────────── */
+general:{
+  name:'General Wellbeing Assessment',
+  qs:[
+    {id:'age',  text:'What is your age range?',                                                        type:'choice', opts:['13–14','15–16','17–18']},
+    {id:'q2',   text:'I use social media within 30 minutes of going to sleep.',                        type:'freq'},
+    {id:'q3',   text:'I check social media immediately after waking up.',                              type:'freq'},
+    {id:'q4',   text:'I spend more than 3 hours per day on social media.',                             type:'freq'},
+    {id:'q5',   text:'I continue scrolling even when I feel tired or unfocused.',                      type:'freq'},
+    {id:'q6',   text:'I compare my appearance, lifestyle, or success to people I see online.',         type:'freq'},
+    {id:'q7',   text:'I feel pressure to present a "perfect" version of myself on social media.',      type:'freq'},
+    {id:'q8',   text:'Social media distracts me from schoolwork or responsibilities.',                 type:'freq'},
+    {id:'q9',   text:'I feel well-rested on most school days.',                                        type:'likert'},
+    {id:'q10',  text:'I have difficulty falling asleep.',                                              type:'likert'},
+    {id:'q11',  text:'I feel anxious or overwhelmed during the day.',                                  type:'likert'},
+    {id:'q12',  text:'My mood is negatively affected after using social media.',                       type:'likert'},
+    {id:'q13',  text:'I find it hard to relax without checking my phone.',                             type:'likert'},
+    {id:'ready',text:'Would you be willing to try a small change to your digital habits this week?',   type:'choice', opts:['Yes','Maybe','Not right now']},
+  ],
+  score(a){
+    const fr=v=>({Never:1,Rarely:2,Sometimes:3,Often:4,Always:5}[v]||3);
+    const lk=v=>({'Strongly Disagree':1,Disagree:2,Neutral:3,Agree:4,'Strongly Agree':5}[v]||3);
+    const q2=fr(a.q2),q3=fr(a.q3),q4=fr(a.q4),q5=fr(a.q5);
+    const q6=fr(a.q6),q7=fr(a.q7),q8=fr(a.q8);
+    const q9=lk(a.q9),q10=lk(a.q10),q11=lk(a.q11),q12=lk(a.q12),q13=lk(a.q13);
+    const sleep=avg(q2,q3,rev(q9),q10);
+    const comparison=avg(q6,q7,q12);
+    const compulsive=avg(q4,q5,q13);
+    const functional=avg(q8,q11);
+    const overall=avg(sleep,comparison,compulsive,functional);
+    const doms={sleep,comparison,compulsive,functional};
+    const sorted=Object.entries(doms).sort((a,b)=>b[1]-a[1]);
+    return{sleep,comparison,compulsive,functional,overall,
+           primary:sorted[0][0],secondary:sorted[1][0],
+           raw:{q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13},
+           age:a.age,ready:a.ready};
+  }
+},
+
+/* ── 03 POST-USE CHECK-IN ─────────────────── */
+postuse:{
+  name:'Post-Use Effects Check-In',
+  qs:[
+    {id:'pre_mood',   type:'mood',   phase:'before', text:'Before you open social media — how are you feeling right now?', note:'1 = very low, 10 = excellent'},
+    {id:'pre_reason', type:'choice', phase:'before', text:'Why are you about to open social media?',
+      opts:['To connect with someone specific','To pass time / boredom','To check notifications','To see what others are doing','Just habit — no real reason','To share something']},
+    {id:'pre_energy', type:'choice', phase:'before', text:'How would you describe your energy right now?',
+      opts:['Energized and focused','Neutral / okay','Tired or drained','Stressed or anxious','Sad or low']},
+    {id:'_break', type:'break'},
+    {id:'post_mood',   type:'mood',   phase:'after', text:'Now that you\'re done — how are you feeling?', note:'Same scale: 1 = very low, 10 = excellent'},
+    {id:'post_feel',   type:'choice', phase:'after', text:'Which best describes how you feel right now?',
+      opts:['Better than before','About the same','Slightly worse','Noticeably worse','Hard to say']},
+    {id:'post_did',    type:'choice', phase:'after', text:'What did you mostly do during your session?',
+      opts:['Scrolled without interacting (passive)','Messaged or talked with people','Posted or commented on things','Mix of passive and active','Watched videos without interacting']},
+    {id:'post_time',   type:'choice', phase:'after', text:'How long was your session?',
+      opts:['Under 10 minutes','10–30 minutes','30–60 minutes','1–2 hours','More than 2 hours']},
+    {id:'post_thought',type:'choice', phase:'after', text:'Which thought is most present right now?',
+      opts:['I feel more connected','Others seem to have better lives','I wasted time','No strong reaction','I feel more anxious or stressed','I feel entertained or inspired']},
+  ],
+  score(a){
+    const pre=parseInt(a.pre_mood)||5;
+    const post=parseInt(a.post_mood)||5;
+    return{pre,post,delta:post-pre,
+           reason:a.pre_reason,energy:a.pre_energy,
+           feel:a.post_feel,did:a.post_did,time:a.post_time,thought:a.post_thought};
+  }
+}
+
+}; // end ASMS
+
+/* ══════════════════════════════════════════════
+   ENGINE
+══════════════════════════════════════════════ */
+function begin(id){
+  AID=id; ASM=ASMS[id]; QI=0; ANS={};
+  document.getElementById('prog-name').textContent=ASM.name;
+  show('questions');
+  renderQ();
+  track('assessment_start',{assessment_type:id});
+}
+
+function goHome(){AID=null;ANS={};QI=0;show('selector');}
+
+/* ── RENDER QUESTION ────────────────────────── */
+function renderQ(){
+  const qs=ASM.qs, q=qs[QI], total=qs.length;
+  const pct=Math.round((QI/total)*100);
+  document.getElementById('prog-count').textContent=`${QI+1} / ${total}`;
+  document.getElementById('prog-fill').style.width=pct+'%';
+
+  const area=document.getElementById('q-area');
+  // animate out
+  const old=area.querySelector('.q-frame');
+  if(old){old.classList.add('out');setTimeout(()=>{area.innerHTML=buildQ(q,QI,total);},200);}
+  else{area.innerHTML=buildQ(q,QI,total);}
+}
+
+function buildQ(q,idx,total){
+  if(q.type==='break') return buildBreak();
+
+  const phaseHtml=q.phase?`<div class="q-phase-pill phase-${q.phase}"><span class="phase-pip"></span>${q.phase==='before'?'Before Your Session':'After Your Session'}</div>`:'';
+  const noteHtml=q.note?`<div class="q-note">${q.note}</div>`:'';
+  const canNext=ANS[q.id]!==undefined;
+  const isLast=idx===total-1;
+
+  let input='';
+  if(q.type==='likert'){
+    input=`<div class="scale-wrap">
+      <div class="scale-ends"><span class="scale-end">Strongly Disagree</span><span class="scale-end">Strongly Agree</span></div>
+      <div class="scale-row">
+        ${[1,2,3,4,5].map(n=>`<button class="scale-btn${ANS[q.id]===n?' picked':''}" onclick="pickScale('${q.id}',${n})">${n}</button>`).join('')}
+      </div></div>`;
+  } else if(q.type==='freq'){
+    input=`<div class="freq-wrap">
+      ${['Never','Rarely','Sometimes','Often','Always'].map(opt=>`
+        <button class="freq-btn${ANS[q.id]===opt?' picked':''}" onclick="pickFreq('${q.id}','${opt}')">
+          <div class="freq-dot"><div class="freq-dot-inner"></div></div>${opt}
+        </button>`).join('')}
+    </div>`;
+  } else if(q.type==='choice'){
+    input=`<div class="freq-wrap">
+      ${(q.opts||[]).map(opt=>`
+        <button class="freq-btn${ANS[q.id]===opt?' picked':''}" onclick="pickFreq('${q.id}','${opt.replace(/'/g,"\\'")}')">
+          <div class="freq-dot"><div class="freq-dot-inner"></div></div>${opt}
+        </button>`).join('')}
+    </div>`;
+  } else if(q.type==='mood'){
+    const val=ANS[q.id]!==undefined?ANS[q.id]:5;
+    if(ANS[q.id]===undefined) ANS[q.id]=5;
+    input=`<div class="mood-wrap">
+      <span class="mood-emoji" id="me-${q.id}">${MOODS[val-1]}</span>
+      <div class="mood-num" id="mn-${q.id}">${val}</div>
+      <div class="mood-sub">out of 10</div>
+      <input type="range" class="mood-slider" min="1" max="10" value="${val}" oninput="moveMood('${q.id}',this.value)" aria-label="Mood rating">
+      <div class="mood-labels"><span>Very low</span><span>Excellent</span></div>
+    </div>`;
+  }
+
+  return `<div class="q-frame">
+    <div class="q-num">Question ${idx+1} of ${total}</div>
+    ${phaseHtml}
+    <div class="q-text">${q.text}</div>
+    ${noteHtml}
+    ${input}
+    <div class="q-nav">
+      ${idx>0?`<button class="btn-back" onclick="goBack()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Back</button>`:'<div></div>'}
+      <button class="btn-next" id="btn-next" onclick="goNext()" ${canNext?'':'disabled'}>
+        ${isLast?'See My Results':'Next'}
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>`;
+}
+
+function buildBreak(){
+  return `<div class="q-frame break-wrap">
+    <div class="break-icon">⏸️</div>
+    <div class="break-title">Now go use social media as you normally would.</div>
+    <div class="break-body">Take however long you need. Come back when you're done and answer the next few questions about how you feel. No timer, no pressure.</div>
+    <div class="q-nav" style="justify-content:center;">
+      <button class="btn-next" onclick="goNext()">
+        I'm done — continue
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>`;
+}
+
+/* ── INPUT HANDLERS ─────────────────────────── */
+function pickScale(id,val){
+  ANS[id]=val;
+  document.querySelectorAll('.scale-btn').forEach(b=>b.classList.toggle('picked',parseInt(b.textContent)===val));
+  enableNext();
+}
+function pickFreq(id,val){
+  ANS[id]=val;
+  document.querySelectorAll('.freq-btn').forEach(b=>b.classList.toggle('picked',b.textContent.trim()===val));
+  enableNext();
+}
+function moveMood(id,val){
+  ANS[id]=parseInt(val);
+  const e=document.getElementById('me-'+id),n=document.getElementById('mn-'+id);
+  if(e)e.textContent=MOODS[val-1];
+  if(n)n.textContent=val;
+  enableNext();
+}
+function enableNext(){const b=document.getElementById('btn-next');if(b)b.disabled=false;}
+
+/* ── NAVIGATION ─────────────────────────────── */
+function goNext(){
+  const q=ASM.qs[QI];
+  if(q.type!=='break'&&q.type!=='mood'&&ANS[q.id]===undefined) return;
+  QI++;
+  if(QI>=ASM.qs.length){runScoring();}
+  else{renderQ();window.scrollTo({top:0,behavior:'smooth'});}
+}
+function goBack(){
+  if(QI>0){QI--;renderQ();window.scrollTo({top:0,behavior:'smooth'});}
+}
+
+/* ── SCORING ────────────────────────────────── */
+function runScoring(){
+  show('loading');
+  [1,2,3].forEach((n,i)=>setTimeout(()=>{const el=document.getElementById('ls'+n);if(el)el.classList.add('show');},400+i*500));
+  setTimeout(()=>{
+    try{
+      const result=ASM.score(ANS);
+      const html=AID==='pva'?pvaResults(result):AID==='general'?generalResults(result):postResults(result);
+      document.getElementById('res-content').innerHTML=html;
+      setTimeout(()=>{
+        document.querySelectorAll('.chip-fill[data-w]').forEach(el=>{el.style.width=el.dataset.w;});
+      },80);
+      show('results');
+      track('assessment_complete',{assessment_type:AID,tier:result.overall?tier(result.overall):'na',primary:result.primary||'na'});
+    }catch(e){
+      console.error(e);
+      document.getElementById('res-content').innerHTML='<p style="padding:40px;text-align:center;">Something went wrong. Please try again or email us at mindscrollhealth@gmail.com.</p>';
+      show('results');
+    }
+  },2200);
+}
+
+function chip(label,val,max,cls){
+  const pct=Math.round((Math.min(val,max)/max)*100);
+  return `<div class="chip">
+    <div class="chip-label">${label}</div>
+    <div class="chip-val">${typeof val==='number'?val.toFixed(1):val} / ${max}</div>
+    <div class="chip-bar"><div class="chip-fill ${cls}" data-w="${pct}%" style="width:0"></div></div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════
+   RESULT BUILDERS
+══════════════════════════════════════════════ */
+
+/* ── PVA RESULTS ────────────────────────────── */
+function pvaResults(r){
+  const{passive,activeRaw,comparison,vulnerability,problematic,overall,primary}=r;
+  const t=tier(overall);
+
+  const tierMsg={
+    low:'Your overall responses suggest a fairly balanced relationship with social media. The breakdown below still gives you useful context.',
+    moderate:'Some patterns here are worth paying attention to. That doesn\'t mean social media is hurting you — it means there are specific things that could be worth changing.',
+    high:'Your responses point to some patterns that research consistently links to more significant wellbeing effects. The good news is these patterns respond well to specific changes — blanket screen time limits usually aren\'t the answer.'
+  }[t];
+
+  const profiles={
+    passive:{
+      title:'Your Primary Pattern: Passive Scrolling',
+      summary:'Your responses suggest passive consumption — scrolling without really interacting — is your main social media pattern. Research has found this is the usage type most consistently linked to lower mood, though it\'s important to note the primary study (Verduyn et al., 2015) was done with young adults, not adolescents. Whether it applies the same way to younger groups is still being studied.',
+      mechanism:'When you scroll passively, you\'re absorbing a continuous feed of curated content without any of the social rewards that come from actual interaction. Social Comparison Theory explains why this hits differently: your brain automatically measures your own life against what you\'re seeing, and passive scrolling turns that comparison dial up as high as it goes while removing the things that would normally offset it.',
+      strats:[
+        '<strong>The 3-interaction rule:</strong> Every time you open an app, commit to commenting, liking, or replying to 3 things before you scroll passively. It sounds simple but it meaningfully shifts the nature of the session.',
+        '<strong>Track it for a week:</strong> After each social media session, write P (mostly passive) or A (mostly active). Most people are genuinely surprised by how passive their use actually is once they start paying attention.',
+        '<strong>State your purpose before opening:</strong> Before you tap the app, say — even just in your head — why you\'re opening it. "I want to see what [friend] posted" is different from opening it with no reason at all. That pause matters.',
+        '<strong>Swap one scroll session:</strong> Pick your most habitual scroll time and replace it for a week with something active — actually texting someone, posting something, commenting on a post.'
+      ]
+    },
+    comparison:{
+      title:'Your Primary Pattern: Social Comparison',
+      summary:'Comparison is your main vulnerability here — you\'re regularly measuring your life, appearance, or circumstances against what you see other people posting. Research consistently identifies this as one of the clearest pathways between social media use and lower self-esteem.',
+      mechanism:'Social Comparison Theory (Festinger, 1954) explains that people naturally evaluate themselves relative to others — it\'s just how we\'re wired. Social media makes this worse by giving you a constant stream of other people\'s best moments, most attractive photos, and peak experiences. You\'re comparing that to your own full, unfiltered day. That\'s not a fair comparison, and the research shows it consistently chips away at how you feel about yourself.',
+      strats:[
+        '<strong>Audit your feed:</strong> Spend 15 minutes going through who you follow. Ask honestly: does seeing this person\'s posts make me feel better or worse about my own life? Mute anyone who consistently lands in the second category.',
+        '<strong>Name it when it happens:</strong> When you catch yourself comparing — "why don\'t I look like that" or "their life is so much better" — just say the word "comparing" in your head. Research shows naming a thought actually reduces its emotional grip.',
+        '<strong>Separate posting from checking:</strong> Post something and then make yourself wait at least 2 hours before checking likes or comments. The loop of posting → immediately checking for validation is a conditioned response, and breaking it weakens it over time.',
+        '<strong>Shift what you consume:</strong> Actively look for content from people you actually know in real life, or community-based stuff, rather than aspirational accounts that are essentially designed to make you feel like you\'re missing something.'
+      ]
+    },
+    vulnerability:{
+      title:'Your Primary Pattern: Mood-Driven Use',
+      summary:'Your responses suggest your emotional state going in strongly shapes how social media affects you — you tend to use it more when you\'re already stressed or down, and your mood before a session tends to affect how you feel after. This bidirectional pattern shows up a lot in the research and it\'s one of the most important things to understand.',
+      mechanism:'Multiple longitudinal studies, including an 8-year study by Coyne et al. (2020), found that the relationship between social media and mental health runs both directions: teens who are already struggling emotionally use social media more, and that heavier use can in turn make things worse. Social media probably isn\'t the source of your struggles — but it may be amplifying them, especially when you go in already feeling low.',
+      strats:[
+        '<strong>Check your mood before opening:</strong> Rate yourself 1–10 before you open any app. If you\'re below 5, do something else first. It sounds annoying but it consistently helps in studies on self-regulation.',
+        '<strong>Build a stress menu:</strong> Write down 5 specific things you can do when you\'re stressed — not general suggestions, things that actually work for you. Having a concrete list ready matters because when you\'re already stressed, your decision-making is worse and your phone becomes the default.',
+        '<strong>Track your emotional arc:</strong> For one week, rate your mood before and after every social media session. Most people find their mood after is lower than before — and that data is actually pretty motivating when you see it.',
+        '<strong>If you\'re going to use it when you\'re low, go active:</strong> Text a specific person, ask something genuine in a community, share how you\'re actually feeling. Active use when you\'re emotionally vulnerable is much less associated with harm than passive scrolling in the same state.'
+      ]
+    },
+    problematic:{
+      title:'Your Primary Pattern: Compulsive Use',
+      summary:'Your responses suggest you sometimes have trouble stopping even when you\'re not really enjoying it. Researchers link this to how social media platforms are built — not to any personal weakness.',
+      mechanism:'Social media uses variable ratio reinforcement — the same psychological mechanism that makes slot machines hard to walk away from. You never know when the next scroll will deliver something good, so you keep going. Research by Montag et al. found it\'s the unpredictability of the reward, not the reward itself, that drives the compulsive behavior. Adolescent brains are especially susceptible to this because the reward systems develop earlier than the parts of the brain responsible for self-regulation.',
+      strats:[
+        '<strong>Set a stop time, not a duration:</strong> "I\'ll stop at 9pm" works better than "I\'ll only use it for 30 minutes." Research on self-regulation shows time-of-day stops are more effective because they don\'t require you to track time while you\'re already engaged.',
+        '<strong>Add friction on purpose:</strong> Log out of apps after each session. Move them off your home screen. Small obstacles interrupt the automatic reach-for-phone behavior without needing willpower.',
+        '<strong>The 10-minute delay:</strong> When you feel the urge to check, set a timer for 10 minutes and do literally anything else. Most urges peak and fade within that window. You can still open the app after — but a lot of people find they don\'t want to as much.',
+        '<strong>Map your triggers:</strong> Compulsive use almost always happens in specific situations — boredom, transitions, waiting for something. Figure out your three biggest triggers and have one specific alternative ready for each one.'
+      ]
+    }
+  };
+
+  const content=profiles[primary]||profiles.passive;
+  const hasActiveStrength=activeRaw>=3.5;
+
+  const secHTML=`
+    <div class="res-body">
+      ${hasActiveStrength?`<div class="alert al-good"><strong>✓ Worth noting:</strong> Your responses suggest you do actively engage with social media — messaging people, posting, actually interacting. Research consistently shows active use is more protective than passive scrolling. You don't need to use social media less overall — just shift more of it toward the kind of active engagement you're already doing.</div>`:''}
+      ${problematic>=4?`<div class="alert al-warn"><strong>Worth paying attention to:</strong> You indicated difficulty stopping even when you're not enjoying it. This is a product of how platforms are designed, not a reflection of your willpower. If it's causing real distress, talking to a counselor or trusted adult is a reasonable step.</div>`:''}
+      <div class="res-sec" style="animation-delay:.1s">
+        <h3>What's Going On</h3>
+        <p>${content.summary}</p>
+      </div>
+      <div class="res-sec" style="animation-delay:.18s">
+        <h3>Why It Works This Way</h3>
+        <p>${content.mechanism}</p>
+      </div>
+      <div class="res-sec" style="animation-delay:.26s">
+        <h3>What You Can Actually Do</h3>
+        <p style="font-size:13px;color:var(--ink-3);margin-bottom:4px;">Specific to your pattern — not generic advice.</p>
+        <ul class="strat-list">${content.strats.map(s=>`<li>${s}</li>`).join('')}</ul>
+      </div>
+      <div class="res-sec" style="animation-delay:.34s">
+        <h3>The Bigger Picture</h3>
+        <p>Across the studies reviewed, one thing comes up consistently: the effect of social media on wellbeing is small on average but varies a lot depending on the individual and how they use it. Orben and Przybylski's analysis of 355,358 adolescents found digital technology use accounted for just 0.35% of variance in wellbeing — but that average hides large individual differences. Changing how you use social media, not just how long, is what the evidence actually supports.</p>
+        <div class="cite">Orben &amp; Przybylski (2019) · Nature Human Behaviour · n=355,358 · Verduyn et al. (2015) · adult sample</div>
+      </div>
+      <div class="alert al-info" style="animation-delay:.42s"><strong>Want more depth?</strong> The General Wellbeing Assessment breaks things down across four specific domains. Try it from the selector.</div>
+    </div>`;
+
+  return `<div>
+    <div class="res-header">
+      <div class="res-hdr">
+        <div class="res-eyebrow">Assessment 01 — Passive vs. Active Use</div>
+        <div class="res-title">${content.title}</div>
+        <div class="res-sub">${tierMsg}</div>
+        <div class="chip-grid">
+          ${chip('Passive Use',passive,5,fc(passive,5))}
+          ${chip('Active Use',activeRaw,5,activeRaw>=3?'c-low':'c-mid')}
+          ${chip('Comparison',comparison,5,fc(comparison,5))}
+          ${chip('Mood-Driven',vulnerability,5,fc(vulnerability,5))}
+        </div>
+      </div>
+    </div>
+    ${secHTML}
+  </div>`;
+}
+
+/* ── GENERAL RESULTS ────────────────────────── */
+function generalResults(r){
+  const{sleep,comparison,compulsive,functional,overall,primary,secondary,raw,age,ready}=r;
+  const t=tier(overall);
+
+  const tierMsg={
+    low:'Your responses suggest a fairly healthy relationship with social media overall. The breakdown below helps you understand your patterns more precisely.',
+    moderate:'Some of your patterns are worth looking at. This doesn\'t mean social media is hurting you — it means there are specific things where small changes could make a real difference.',
+    high:'Your responses point to some patterns that research consistently links to worse wellbeing outcomes. These patterns tend to respond well to specific, targeted changes rather than just cutting down on time.'
+  }[t];
+
+  const ageNotes={
+    '13–14':'Research on early adolescents (13–14) shows this is a particularly sensitive developmental period — your brain\'s social reward systems are especially active right now, which makes you more responsive to social comparison and peer approval cues than you\'ll be in a few years. That\'s not a weakness, it\'s just where you are developmentally. The habits you build now do tend to stick around though.',
+    '15–16':'Research on mid-adolescence (15–16) shows this is often when social media use peaks in intensity. Identity formation is very active during this period, which makes things like appearance-based comparison and social validation feel more loaded than they might otherwise.',
+    '17–18':'Research on older adolescents (17–18) suggests executive function develops significantly during this period — which means you have more capacity than younger teens to consciously regulate your habits. Patterns from earlier might feel automatic, but this is a good time to examine them.'
+  };
+
+  const doms={
+    sleep:{label:'🌙 Sleep Disruption',score:sleep,
+      summary:'Your responses suggest social media is most significantly affecting your sleep — either by keeping you on your phone close to bedtime, by being the first thing you reach for in the morning, or both.',
+      why:'Screens suppress melatonin production, which pushes your sleep cycle back and reduces sleep quality even when you do fall asleep. On top of the light issue, processing social content — notifications, comparisons, emotionally activating posts — keeps your nervous system engaged when it needs to be winding down. Scott et al. (BMJ Open) found social media near bedtime was consistently linked to shorter sleep and higher daytime fatigue in adolescents. When you use your phone matters more than how long.',
+      strats:['<strong>30-minute buffer before sleep:</strong> Set a specific time to put your phone down — not an intention, an actual time. Even 30 minutes makes a measurable difference in melatonin levels and how alert your brain is when you\'re trying to fall asleep.','<strong>Charge it outside your bedroom:</strong> This is the most consistently evidence-supported sleep change researchers recommend. If it\'s not in the room, you\'re not going to check it at 2am. Use a separate alarm clock.','<strong>Delay the morning check:</strong> Your brain is in a neurologically distinct state for the first 20–30 minutes after waking. Opening social media in that window — and getting hit with comparison content right away — has been shown to negatively set your mood for the whole morning.','<strong>Replace the bedtime scroll with something else:</strong> Passive scrolling before sleep feels relaxing but isn\'t. Find one thing that actually relaxes you — reading actual pages, a podcast, whatever works — and use that instead.']
+    },
+    comparison:{label:'🪞 Social Comparison',score:comparison,
+      summary:'Social comparison is your main area of concern based on your responses. You\'re regularly measuring your appearance, lifestyle, or life circumstances against what you see other people posting.',
+      why:'Social Comparison Theory explains that humans naturally evaluate themselves relative to others — it\'s deeply wired in. Social media makes this uniquely difficult because you\'re comparing your full, unfiltered experience of your own life against other people\'s curated highlight reels. Nobody posts their boring Tuesday. Research by Nesi and Prinstein found appearance-based comparison on social media specifically correlates with depressive symptoms in adolescents, with stronger effects around metrics like likes and comments.',
+      strats:['<strong>Audit your feed:</strong> Go through who you follow and ask honestly whether each account makes you feel better or worse about your own life. Mute anyone who consistently lands in the second category. This takes 15 minutes and it works.','<strong>Name the comparison when it happens:</strong> When you notice a comparison thought — "why don\'t I look like that," "their life is so much better" — just say "comparing" in your head. Research on cognitive defusion shows naming a thought weakens its emotional pull.','<strong>Post and then wait:</strong> After posting something, deliberately don\'t check for likes or comments for at least 2 hours. The anxiety of waiting is a conditioned response and it weakens when you stop feeding it.','<strong>Seek content from people you actually know:</strong> Accounts from people you have real relationships with, or community-based content, tend to trigger less harmful comparison than aspirational accounts designed to make you feel like you\'re missing out.']
+    },
+    compulsive:{label:'📱 Compulsive & Heavy Use',score:compulsive,
+      summary:'Heavy and compulsive use is your main pattern — spending a lot of time on social media, continuing to scroll when you\'re tired or unfocused, and finding it hard to relax without your phone.',
+      why:'Social media platforms use variable ratio reinforcement — the same mechanism that makes gambling hard to stop. You never know when the next scroll will deliver something good, so you keep going. Research by Montag et al. found it\'s the unpredictability of the reward, not the reward itself, that drives the compulsive pattern. Adolescent brains are particularly susceptible because reward systems develop before cognitive control systems do.',
+      strats:['<strong>Set a stop time instead of a duration:</strong> "I\'ll stop at 9pm" works better than "I\'ll only use it for an hour." Time-of-day anchors are more effective stopping cues because you\'re not tracking elapsed time while you\'re engaged.','<strong>Add friction:</strong> Log out after every session. Move apps off your home screen so you have to search for them. Small obstacles consistently reduce impulsive opening without requiring willpower.','<strong>The 10-minute urge delay:</strong> When you feel the urge to check, set a 10-minute timer and do anything else. Most urges fade within that window without reinforcement.','<strong>Figure out your trigger situations:</strong> Compulsive use almost always happens in specific contexts — boredom, transitions, waiting. Identify your three biggest triggers and plan one specific alternative for each one.']
+    },
+    functional:{label:'📚 Academic & Emotional Impact',score:functional,
+      summary:'Your responses suggest social media is most noticeably affecting your academic focus and emotional state — pulling you away from schoolwork and contributing to anxiety or feeling overwhelmed.',
+      why:'Social media affects academic performance two ways: it directly displaces time that could go to studying or sleep, and it fragments attention even in small doses. Research by Gloria Mark at UC Irvine found it takes an average of 23 minutes to fully recover focus after an interruption. For someone checking their phone frequently during homework, the attention cost is far higher than the actual minutes spent on it.',
+      strats:['<strong>Phone in a different room during work:</strong> Not face-down on your desk, not on silent — another room. Research actually shows that having your phone visible on your desk reduces available cognitive capacity even when you\'re not using it.','<strong>Schedule social media time:</strong> Instead of trying to resist it during work, designate specific times for it after you finish a block of work. Converting it from something you\'re denying yourself to something you\'re scheduling is psychologically much easier.','<strong>Sit with the anxiety for 5 minutes before reaching for your phone:</strong> When anxiety spikes, the instinct is to reach for your phone for distraction. That works short-term but maintains the anxiety pattern long-term. Waiting 5 minutes builds genuine capacity to regulate without the phone.','<strong>End-of-day check-in:</strong> Two minutes each evening asking whether social media helped or hurt your focus and mood today. Two weeks of this produces more self-awareness about your patterns than most other things you could do.']
+    }
+  };
+
+  const pd=doms[primary],sd=doms[secondary];
+
+  const readyContent={
+    'Yes':{
+      sleep:'Tonight: charge your phone outside your bedroom and use a separate alarm. Try this for 7 nights.',
+      comparison:'This week: spend 15 minutes going through who you follow and muting anyone whose posts consistently make you feel worse about yourself.',
+      compulsive:'Today: log out of every social media app. Require yourself to log back in each time you want to use it for the next 7 days.',
+      functional:'This week: put your phone in a different room during every homework session. Notice your focus at the end of each day.'
+    },
+    'Maybe':'Starting from "maybe" is genuinely fine. Ambivalence is normal and awareness alone already matters. The strategies above will still be here when you\'re ready.',
+    'Not right now':'That\'s okay. Understanding your patterns has value on its own. No timeline required — come back when it feels right.'
+  };
+
+  let readyHtml='';
+  if(ready==='Yes'){const ch=readyContent['Yes'][primary]||readyContent['Yes']['sleep'];readyHtml=`<div class="alert al-good"><strong>✓ Here's your one-week challenge:</strong><br><br>${ch}<br><br><em>Small specific changes consistently outperform big vague intentions in the research.</em></div>`;}
+  else if(ready==='Maybe'){readyHtml=`<div class="alert al-warn"><strong>Starting from "maybe" is fine.</strong> ${readyContent['Maybe']}</div>`;}
+  else{readyHtml=`<div class="alert al-neutral"><strong>No pressure.</strong> ${readyContent['Not right now']}</div>`;}
+
+  const flags=[];
+  if(raw.q2>=4) flags.push('📱 <strong>Nighttime phone use:</strong> You frequently use social media within 30 minutes of sleep. Research consistently identifies this as the highest-impact intervention point for sleep quality.');
+  if(raw.q3>=4) flags.push('☀️ <strong>Morning phone use:</strong> Checking social media immediately after waking sets the emotional tone for your morning during a neurologically sensitive window. A 20-minute buffer is one of the simplest changes you can make.');
+  if(raw.q4>=4) flags.push('⏱ <strong>Heavy daily use:</strong> Twenge et al. found that daily use over 3 hours is associated with significantly higher rates of depressive symptoms in adolescents.');
+  if(raw.q10>=4) flags.push('😴 <strong>Sleep difficulty:</strong> Your sleep difficulty combined with your social media patterns is a well-documented combination. Sleep disruption is the most mechanically direct pathway through which social media causes harm.');
+  if(raw.q12>=4) flags.push('📉 <strong>Mood impact after use:</strong> When post-use mood is consistently negative, the research suggests the pattern of use — not total time — is almost always the main driver.');
+
+  return `<div>
+    <div class="res-header">
+      <div class="res-hdr">
+        <div class="res-eyebrow">Assessment 02 — General Wellbeing${age?' · Ages '+age:''}</div>
+        <div class="res-title">Primary Area: ${pd.label}</div>
+        <div class="res-sub">${tierMsg}</div>
+        <div class="chip-grid">
+          ${chip('🌙 Sleep',sleep,5,fc(sleep,5))}
+          ${chip('🪞 Comparison',comparison,5,fc(comparison,5))}
+          ${chip('📱 Compulsive',compulsive,5,fc(compulsive,5))}
+          ${chip('📚 Academic',functional,5,fc(functional,5))}
+        </div>
+      </div>
+    </div>
+    <div class="res-body">
+      ${age&&ageNotes[age]?`<div class="alert al-info" style="animation-delay:.05s"><strong>Ages ${age}:</strong> ${ageNotes[age]}</div>`:''}
+      ${flags.length?`<div class="res-sec" style="animation-delay:.1s"><h3>A Few Things That Stood Out</h3><ul class="strat-list">${flags.map(f=>`<li>${f}</li>`).join('')}</ul></div>`:''}
+      <div class="res-sec" style="animation-delay:.15s">
+        <h3>${pd.label} — Your Primary Area</h3>
+        <p>${pd.summary}</p>
+        <p style="margin-top:10px;font-size:13.5px;color:var(--ink-3);">${pd.why}</p>
+      </div>
+      ${sd&&sd.score>=3.0?`<div class="alert al-warn" style="animation-delay:.22s"><strong>⚠ Second area to watch — ${sd.label} (${sd.score.toFixed(1)}/5):</strong> This is also elevated. Addressing your primary area first tends to be the right move — improvements in one domain often spill over into others.</div>`:''}
+      <div class="res-sec" style="animation-delay:.28s">
+        <h3>What You Can Do</h3>
+        <ul class="strat-list">${pd.strats.map(s=>`<li>${s}</li>`).join('')}</ul>
+      </div>
+      <div class="res-sec" style="animation-delay:.35s">
+        <h3>Your Next Step</h3>
+        ${readyHtml}
+      </div>
+      <div class="res-sec" style="animation-delay:.42s">
+        <h3>The Finding That Changes Everything</h3>
+        <p>Across dozens of peer-reviewed studies, the same thing keeps coming up: <strong>how and when you use social media matters far more than how long.</strong> Orben and Przybylski analyzed 355,358 adolescents and found digital technology use accounted for just 0.35% of variance in wellbeing on average — small. But that average hides enormous variation. Adolescents with specific patterns — passive use, low mood going in, high comparison sensitivity — experience effects much larger than the average suggests. Targeted change to your specific pattern is what the evidence supports, not generic screen time limits.</p>
+        <div class="cite">Orben &amp; Przybylski (2019) · Nature Human Behaviour · Scott et al. (2019) · BMJ Open · Twenge et al. (2018) · Clinical Psychological Science</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── POST-USE RESULTS ───────────────────────── */
+function postResults(r){
+  const{pre,post,delta,reason,energy,feel,did,time,thought}=r;
+  const dc=delta>=2?{col:'#27ae60',label:'Improved',text:'Your mood went up during this session — worth noting. Look at what you actually did and whether this pattern holds across other sessions.'}
+    :delta>=-1?{col:'#e67e22',label:'Roughly the same',text:'Not much change — this is common and doesn\'t tell you a huge amount on its own. Tracking multiple sessions will give you a clearer picture.'}
+    :{col:'#c0392b',label:'Declined',text:'Your mood went down. This is one of the most consistent patterns in the research: passive use after a neutral or low starting mood tends to produce exactly this outcome.'};
+
+  const wasPassive=did&&(did.includes('passive')||did.includes('without interacting')||did.includes('Watched videos'));
+  const didNote=wasPassive?'You reported mostly passive use. Research by Verduyn et al. found passive use was associated with lower wellbeing while active use wasn\'t — though this study used adults, not adolescents. It\'s a meaningful data point.':'You reported engaging actively — messaging, posting, interacting. Research suggests active use is generally more protective than passive scrolling.';
+
+  const timeFlag=time&&(time.includes('1–2')||time.includes('More than 2'))?`<div class="alert al-warn" style="margin-top:14px;"><strong>Session length:</strong> Twenge et al. found daily use over 3 hours is associated with elevated depressive symptoms in adolescents. This session alone may have been a significant portion of that threshold.</div>`:'';
+
+  return `<div>
+    <div class="res-header">
+      <div class="res-hdr">
+        <div class="res-eyebrow">Assessment 03 — Post-Use Effects Check-In</div>
+        <div class="res-title">Mood shift: <span style="color:${dc.col}">${delta>=0?'+':''}${delta} point${Math.abs(delta)!==1?'s':''}</span></div>
+        <div class="res-sub">${dc.label} — ${dc.text}</div>
+        <div class="chip-grid">
+          ${chip('Mood Before',pre,10,pre>=7?'c-low':pre>=5?'c-mid':'c-hi')}
+          ${chip('Mood After',post,10,post>=7?'c-low':post>=5?'c-mid':'c-hi')}
+        </div>
+      </div>
+    </div>
+    <div class="res-body">
+      <div class="res-sec" style="animation-delay:.1s">
+        <h3>What Your Session Looked Like</h3>
+        <p><strong>Why you went in:</strong> ${reason||'—'}</p>
+        <p><strong>Energy before:</strong> ${energy||'—'}</p>
+        <p><strong>What you mostly did:</strong> ${did||'—'}</p>
+        <p><strong>How long:</strong> ${time||'—'}</p>
+        <p><strong>Most present thought after:</strong> ${thought||'—'}</p>
+        ${timeFlag}
+      </div>
+      ${didNote?`<div class="res-sec" style="animation-delay:.18s"><h3>About How You Used It</h3><p>${didNote}</p><p style="margin-top:10px;">Research on social media's mood effects consistently finds that your starting mood, why you opened the app, and what you did during the session shape the outcome more than the session length does.</p></div>`:''}
+      <div class="res-sec" style="animation-delay:.26s">
+        <h3>What To Do With This</h3>
+        <ul class="strat-list">
+          <li><strong>Track multiple sessions:</strong> One check-in doesn't tell you much. Do this 5–10 times and you'll start to see whether specific contexts — low mood going in, passive use, boredom as the reason — reliably produce negative outcomes for you.</li>
+          <li><strong>Pay attention to why you go in:</strong> Your reason (${reason||'unclear'}) is one of the strongest predictors of how the session goes. Sessions opened from habit or boredom tend to go worse in the research than sessions opened with a specific purpose.</li>
+          <li><strong>Your starting mood matters:</strong> You started at ${pre}/10. Research suggests that going in below 5 and then scrolling passively is the highest-risk combination.${pre<5&&wasPassive?' That\'s what this session was.':''}</li>
+          <li><strong>Share your patterns with us:</strong> If you've been doing this across multiple sessions and want to talk through what you're seeing, email us at mindscrollhealth@gmail.com. This kind of self-tracking is exactly what MindScroll is trying to study more systematically.</li>
+        </ul>
+      </div>
+      <div class="alert al-info" style="animation-delay:.34s"><strong>Want a fuller picture?</strong> The Passive vs. Active Use Assessment and the General Wellbeing Assessment give you more depth. Both are in the selector.</div>
+    </div>
+  </div>`;
+}
+
+/* ── INIT ────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');s.style.display='none';});
+  const sel=document.getElementById('s-selector');
+  sel.style.display='block'; sel.classList.add('active');
+  window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>10);},{passive:true});
+  track('page_view',{page:'assessments'});
+});
+</script>
+</body>
+</html>

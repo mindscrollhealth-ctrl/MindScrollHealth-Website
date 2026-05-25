@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join the Team — MindScroll Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0SEWRNQB99"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0SEWRNQB99',{anonymize_ip:true});</script>
+<style>
+:root{
+  --ink:#0e1117;--ink-2:#2c3140;--ink-3:#5c6272;--ink-4:#9aa0af;
+  --paper:#f8f6f1;--paper-2:#f1ede4;--white:#fff;
+  --navy:#162847;--navy-mid:#1e3d6e;--navy-xlt:#edf3fc;
+  --gold:#b8893a;--gold-xlt:#fdf7ec;
+  --sage:#3d7a5e;--sage-light:#dff0e8;
+  --border:rgba(14,17,23,.09);--border-md:rgba(14,17,23,.14);
+  --r:10px;--r-lg:16px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Syne',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;}
+a{text-decoration:none;color:inherit;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(248,246,241,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Lora',serif;font-size:16px;font-weight:700;color:var(--ink);}
+.nav-logo span{color:var(--navy-mid);}
+.nav-back{font-size:12.5px;font-weight:500;color:var(--ink-3);display:flex;align-items:center;gap:5px;}
+.nav-back:hover{color:var(--navy-mid);}
+.nav-back svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+
+.shell{max-width:660px;margin:0 auto;padding:100px 24px 80px;}
+
+.hero{margin-bottom:40px;}
+.hero h1{font-family:'Lora',serif;font-size:clamp(28px,4.5vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;}
+.hero h1 em{font-style:italic;color:var(--navy-mid);}
+.hero p{font-size:15px;color:var(--ink-2);line-height:1.75;max-width:520px;}
+
+.roles{display:flex;flex-direction:column;gap:14px;margin-bottom:36px;}
+.role{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px 26px;}
+.role-tag{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--navy-mid);background:var(--navy-xlt);padding:3px 9px;border-radius:4px;display:inline-block;margin-bottom:10px;letter-spacing:.04em;}
+.role h3{font-family:'Lora',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.role p{font-size:13.5px;color:var(--ink-2);line-height:1.65;}
+.role-note{font-size:12px;color:var(--ink-4);margin-top:8px;font-style:italic;}
+
+.form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;margin-bottom:28px;}
+.form-card h2{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.form-sub{font-size:13px;color:var(--ink-3);margin-bottom:24px;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-2);margin-bottom:6px;}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 14px;border:1.5px solid var(--border-md);border-radius:8px;
+  font-family:'Syne',sans-serif;font-size:14px;color:var(--ink);background:var(--paper);outline:none;
+  transition:border-color .18s,box-shadow .18s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navy-mid);box-shadow:0 0 0 3px rgba(30,61,110,.1);}
+.field textarea{height:100px;resize:vertical;line-height:1.55;}
+.field select{appearance:none;cursor:pointer;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.check-group{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+.check-opt{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-2);cursor:pointer;padding:8px 12px;border:1.5px solid var(--border-md);border-radius:8px;transition:all .15s;}
+.check-opt:hover{border-color:var(--navy-mid);color:var(--navy-mid);}
+.check-opt.sel{background:var(--navy-xlt);border-color:var(--navy-mid);color:var(--navy-mid);}
+.check-box{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.check-opt.sel .check-box{background:var(--navy-mid);border-color:var(--navy-mid);}
+.check-mark{width:8px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);opacity:0;transition:opacity .12s;margin-top:-1px;}
+.check-opt.sel .check-mark{opacity:1;}
+
+.submit-btn{
+  width:100%;padding:14px;border-radius:9px;border:none;cursor:pointer;
+  background:var(--navy);color:#fff;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  transition:background .18s,transform .15s,box-shadow .2s;
+}
+.submit-btn:hover{background:var(--navy-mid);transform:translateY(-2px);box-shadow:0 8px 24px rgba(22,40,71,.28);}
+
+.success-msg{display:none;text-align:center;padding:40px 20px;background:var(--navy-xlt);border:1px solid rgba(30,61,110,.18);border-radius:var(--r-lg);margin-bottom:28px;}
+.success-msg h2{font-family:'Lora',serif;font-size:22px;font-weight:700;color:var(--navy-mid);margin-bottom:8px;}
+.success-msg p{font-size:14px;color:var(--ink-2);line-height:1.7;}
+
+.note{font-size:12.5px;color:var(--ink-4);line-height:1.7;padding:16px 20px;background:var(--paper-2);border:1px solid var(--border);border-radius:var(--r-lg);}
+.note strong{color:var(--ink-3);}
+
+.foot{text-align:center;padding:32px 24px;border-top:1px solid var(--border);margin-top:40px;font-size:12px;color:var(--ink-4);}
+.foot a{color:var(--navy-mid);}
+
+@media(max-width:600px){
+  nav{padding:0 16px;}
+  .shell{padding:80px 16px 56px;}
+  .field-row{grid-template-columns:1fr;}
+  .form-card{padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Mind<span>Scroll</span> Health</a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to site
+  </a>
+</nav>
+
+<div class="shell">
+  <div class="hero">
+    <h1>We're looking for people who <em>care about this.</em></h1>
+    <p>MindScroll is small and early. Everyone who joins right now has a real role with real impact — not busywork. If any of the positions below sound like you, apply. We read every application.</p>
+  </div>
+
+  <div class="roles">
+    <div class="role">
+      <div class="role-tag">Content & Social Media</div>
+      <h3>Social Media & Content Intern</h3>
+      <p>Run our Instagram and LinkedIn presence. Create posts explaining the research in accessible ways, build carousel graphics, engage with followers, and help grow MindScroll's audience from the ground up. You'd have real ownership of the content strategy.</p>
+      <div class="role-note">Best fit: someone who's comfortable writing and creating visual content, and who genuinely cares about the research angle — not just posting for engagement.</div>
+    </div>
+
+    <div class="role">
+      <div class="role-tag">Research</div>
+      <h3>Research Intern</h3>
+      <p>Help strengthen the literature review, source new studies, fact-check claims, and support the longitudinal study. You'd be working directly with the research that everything else is built on. Background in psychology, public health, or related fields is helpful but not required.</p>
+      <div class="role-note">Best fit: someone who actually likes reading papers and wants research experience.</div>
+    </div>
+
+    <div class="role">
+      <div class="role-tag">Outreach</div>
+      <h3>Partnerships & Outreach Intern</h3>
+      <p>Help build relationships with school counselors, youth organizations, and potential university partners. Draft outreach emails, track conversations, and help MindScroll get its tools into the hands of people who can use them. Strong communicators preferred.</p>
+      <div class="role-note">Best fit: someone who's comfortable reaching out to people they don't know and can write a clear, professional email.</div>
+    </div>
+
+    <div class="role">
+      <div class="role-tag">Engineering</div>
+      <h3>Web & Product Intern</h3>
+      <p>Help improve the website, build new interactive tools (like the sleep tracker we're planning), and make the assessment experience better. HTML/CSS/JS is the minimum — React or Python experience is a plus.</p>
+      <div class="role-note">Best fit: someone who can ship working code and cares about building something that actually helps people.</div>
+    </div>
+  </div>
+
+  <div class="form-card" id="apply-form">
+    <h2>Apply</h2>
+    <p class="form-sub">Takes about 2 minutes. We usually respond within a week.</p>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Full name</label>
+        <input type="text" id="a-name" placeholder="First and last">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="a-email" placeholder="you@email.com">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>What role(s) are you interested in? (select all that apply)</label>
+      <div class="check-group" id="role-checks">
+        <div class="check-opt" onclick="toggleCheck(this)">
+          <div class="check-box"><div class="check-mark"></div></div>
+          Social Media & Content
+        </div>
+        <div class="check-opt" onclick="toggleCheck(this)">
+          <div class="check-box"><div class="check-mark"></div></div>
+          Research
+        </div>
+        <div class="check-opt" onclick="toggleCheck(this)">
+          <div class="check-box"><div class="check-mark"></div></div>
+          Partnerships & Outreach
+        </div>
+        <div class="check-opt" onclick="toggleCheck(this)">
+          <div class="check-box"><div class="check-mark"></div></div>
+          Web & Product
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>How many hours per week could you realistically commit?</label>
+      <select id="a-hours">
+        <option value="">Select</option>
+        <option>2-4 hours</option>
+        <option>5-8 hours</option>
+        <option>9-15 hours</option>
+        <option>15+ hours</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Why MindScroll? What about this specifically interests you?</label>
+      <textarea id="a-why" placeholder="Be real — we care more about genuine interest than polished answers."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Anything else you want us to know? (optional)</label>
+      <textarea id="a-extra" placeholder="Relevant experience, links to your work, what you're studying, etc." style="height:80px;"></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="submitApp()">Submit Application</button>
+  </div>
+
+  <div class="success-msg" id="success-msg">
+    <h2>Application sent.</h2>
+    <p>Your email client should have opened with your application pre-filled. Hit send and we'll review it within a week. If it didn't open, email everything directly to mindscrollhealth@gmail.com.</p>
+  </div>
+
+  <div class="note">
+    <strong>A few things to know:</strong> These are unpaid volunteer positions at this stage. MindScroll is a young organization and we're building from scratch. What you will get: real experience, real ownership, your name on real output, and a reference from the founder. We're looking for people who want to build something — not add a line to a resume.
+  </div>
+</div>
+
+<div class="foot">
+  <a href="index.html">MindScroll Health</a> · <a href="mailto:mindscrollhealth@gmail.com">mindscrollhealth@gmail.com</a>
+</div>
+
+<script>
+function toggleCheck(el) { el.classList.toggle('sel'); }
+
+function submitApp() {
+  const name  = document.getElementById('a-name').value.trim();
+  const email = document.getElementById('a-email').value.trim();
+  const hours = document.getElementById('a-hours').value;
+  const why   = document.getElementById('a-why').value.trim();
+  const extra = document.getElementById('a-extra').value.trim();
+
+  const roles = [];
+  document.querySelectorAll('#role-checks .check-opt.sel').forEach(el => {
+    roles.push(el.textContent.trim());
+  });
+
+  if (!name || !email || !roles.length || !hours || !why) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  const subject = 'Intern Application: ' + name;
+  const body = [
+    'MINDSCROLL HEALTH — INTERN APPLICATION',
+    '=======================================',
+    '',
+    'Name: ' + name,
+    'Email: ' + email,
+    'Roles: ' + roles.join(', '),
+    'Hours/week: ' + hours,
+    '',
+    'Why MindScroll:',
+    why,
+    '',
+    'Additional:',
+    extra || '(none)',
+    '',
+    'Date: ' + new Date().toLocaleDateString()
+  ].join('\n');
+
+  window.location.href = 'mailto:mindscrollhealth@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+  document.getElementById('apply-form').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+
+  if (typeof gtag === 'function') gtag('event', 'intern_application', { roles: roles.join(',') });
+}
+</script>
+</body>
+</html>

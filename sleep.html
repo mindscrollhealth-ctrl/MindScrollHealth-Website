@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Check-In — MindScroll Health</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0SEWRNQB99"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0SEWRNQB99',{anonymize_ip:true});</script>
+</head>
+<body style="font-family:'Syne',sans-serif;background:#f8f6f1;color:#0e1117;margin:0;line-height:1.65;">
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(248,246,241,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(14,17,23,.09);">
+<a href="index.html" style="font-family:'Lora',serif;font-size:16px;font-weight:700;color:#0e1117;text-decoration:none;">Mind<span style="color:#1e3d6e;">Scroll</span> Health</a>
+<div style="display:flex;align-items:center;gap:10px;">
+<span style="font-family:'DM Mono',monospace;font-size:10px;color:#3d7a5e;background:#dff0e8;border:1px solid rgba(61,122,94,.2);padding:3px 9px;border-radius:100px;">Stored on your device only</span>
+<a href="index.html" style="font-size:12px;font-weight:500;color:#5c6272;text-decoration:none;">Back</a>
+</div>
+</nav>
+<div id="app" style="max-width:580px;margin:0 auto;padding:80px 16px 100px;"></div>
+<div style="text-align:center;padding:24px 16px;font-size:11px;color:#9aa0af;border-top:1px solid rgba(14,17,23,.09);margin-top:32px;">
+<a href="index.html" style="color:#1e3d6e;text-decoration:none;">MindScroll Health</a> · <a href="mailto:mindscrollhealth@gmail.com" style="color:#1e3d6e;text-decoration:none;">mindscrollhealth@gmail.com</a><br>All data stored in your browser only.
+</div>
+<script>
+'use strict';
+const K='mindscroll_sleep',app=document.getElementById('app');
+let d={quality:0,energy:0,phoneBed:'',bedAct:'',phoneMorn:'',hours:''};
+function gE(){try{return JSON.parse(localStorage.getItem(K))||[];}catch(e){return[];}}
+function sE(e){localStorage.setItem(K,JSON.stringify(e));}
+let curTab='log';
+
+function render(){
+const entries=gE();
+const tabs=`<div style="display:flex;gap:4px;margin-bottom:24px;background:#f1ede4;padding:4px;border-radius:10px;">
+${['Today','History','Patterns'].map(t=>{const id=t==='Today'?'log':t.toLowerCase();return`<div onclick="curTab='${id}';render()" style="flex:1;padding:10px;font-size:13px;font-weight:600;text-align:center;border-radius:8px;cursor:pointer;color:${curTab===id?'#1e3d6e':'#5c6272'};background:${curTab===id?'#fff':'transparent'};${curTab===id?'box-shadow:0 1px 4px rgba(14,17,23,.08);':''}">${t}</div>`;}).join('')}</div>`;
+
+const header=`<div style="background:linear-gradient(135deg,#1a1a3e,#2d2d5e);border-radius:16px;padding:28px 24px;margin-bottom:20px;text-align:center;position:relative;overflow:hidden;">
+<div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06);"></div>
+<div style="font-size:32px;position:relative;z-index:1;margin-bottom:10px;">&#x1F319;</div>
+<div style="font-family:'Lora',serif;font-size:24px;font-weight:700;color:#fff;position:relative;z-index:1;margin-bottom:4px;">Sleep and Phone Check-In</div>
+<div style="font-size:13px;color:rgba(255,255,255,.55);position:relative;z-index:1;">Fill this in each morning. About 60 seconds. Patterns appear after 3 days.</div>
+</div>`;
+
+if(curTab==='log'){app.innerHTML=header+tabs+renderLog();}
+else if(curTab==='history'){app.innerHTML=header+tabs+renderHistory(entries);}
+else{app.innerHTML=header+tabs+renderPatterns(entries);}
+}
+
+function btn(label,field,val,type){
+const sel=d[field]===val;
+const style=type==='mood'
+?`flex:1;height:42px;border:1.5px solid ${sel?'#1e3d6e':'rgba(14,17,23,.14)'};border-radius:8px;font-size:13px;font-weight:600;color:${sel?'#fff':'#5c6272'};background:${sel?'#1e3d6e':'#fff'};cursor:pointer;font-family:'Syne',sans-serif;`
+:`padding:8px 14px;border:1.5px solid ${sel?'#1e3d6e':'rgba(14,17,23,.14)'};border-radius:100px;font-size:12.5px;font-weight:500;color:${sel?'#fff':'#5c6272'};background:${sel?'#1e3d6e':'transparent'};cursor:pointer;font-family:'Syne',sans-serif;`;
+return`<button style="${style}" onclick="d.${field}=${typeof val==='number'?val:"'"+val.replace(/'/g,"\\'")+"'"};render()">${label}</button>`;
+}
+
+function renderLog(){
+const moodRow=(field)=>`<div style="display:flex;gap:6px;margin-bottom:14px;">${[1,2,3,4,5].map(v=>btn(v,field,v,'mood')).join('')}</div>`;
+return`<div style="background:#fff;border:1px solid rgba(14,17,23,.09);border-radius:16px;padding:24px;margin-bottom:16px;">
+<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;margin-bottom:6px;">This morning</div>
+<div style="font-size:13px;color:#9aa0af;margin-bottom:18px;">How did you sleep, and what happened with your phone last night?</div>
+
+<div style="font-size:12px;font-weight:600;color:#2c3140;margin-bottom:5px;">Sleep quality (1 = terrible, 5 = great)</div>
+${moodRow('quality')}
+
+<div style="font-size:12px;font-weight:600;color:#2c3140;margin-bottom:5px;">How rested do you feel? (1 = exhausted, 5 = great)</div>
+${moodRow('energy')}
+
+<div style="font-size:12px;font-weight:600;color:#2c3140;margin-bottom:5px;">Phone within 30 min of trying to sleep?</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">${btn('Yes','phoneBed','Yes','pill')}${btn('No','phoneBed','No','pill')}</div>
+
+<div style="font-size:12px;font-weight:600;color:#2c3140;margin-bottom:5px;">What were you doing on your phone before bed?</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">${['Scrolling social media','Messaging friends','Watching videos','Did not use phone','Other'].map(v=>btn(v,'bedAct',v,'pill')).join('')}</div>
+
+<div style="font-size:12px;font-weight:600;color:#2c3140;margin-bottom:5px;">Checked phone within 10 min of waking?</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">${btn('Yes','phoneMorn','Yes','pill')}${btn('No','phoneMorn','No','pill')}</div>
+
+<div style="font-size:12px;font-weight:600;color:#2c3140;margin-bottom:5px;">Hours of sleep</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">${['Under 5','5-6','6-7','7-8','8+'].map(v=>btn(v,'hours',v,'pill')).join('')}</div>
+
+<button onclick="saveSleep()" style="width:100%;padding:13px;border-radius:9px;border:none;background:#162847;color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;">Save Check-In</button>
+</div>
+<div style="background:#e8e4f8;border:1px solid rgba(45,45,94,.1);border-radius:10px;padding:14px 16px;font-size:12.5px;color:#5c6272;line-height:1.65;">
+<strong style="color:#2c3140;">Why this matters:</strong> Scott et al. (2019) found among 11,872 adolescents that social media near bedtime was consistently associated with shorter sleep and lower quality. The timing of phone use — not total screen time — was the more important variable.
+</div>`;
+}
+
+function saveSleep(){
+if(!d.quality||!d.energy||!d.phoneBed||!d.bedAct||!d.phoneMorn||!d.hours){alert('Please answer all questions.');return;}
+const entries=gE();
+entries.unshift({id:Date.now(),date:new Date().toISOString(),...d});
+sE(entries);
+d={quality:0,energy:0,phoneBed:'',bedAct:'',phoneMorn:'',hours:''};
+alert('Check-in saved.');
+render();
+}
+
+function renderHistory(entries){
+if(!entries.length)return'<div style="background:#fff;border:1px solid rgba(14,17,23,.09);border-radius:16px;padding:40px 20px;text-align:center;color:#9aa0af;">No entries yet.</div>';
+return`<div style="background:#fff;border:1px solid rgba(14,17,23,.09);border-radius:16px;padding:24px;">
+<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;margin-bottom:6px;">Your sleep log</div>
+<div style="font-size:13px;color:#9aa0af;margin-bottom:18px;">${entries.length} entries</div>
+${entries.map(e=>{
+const dt=new Date(e.date);
+return`<div style="background:#f8f6f1;border:1px solid rgba(14,17,23,.09);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+<div style="flex:1;">
+<div style="font-family:'DM Mono',monospace;font-size:11px;color:#9aa0af;">${dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}</div>
+<div style="font-size:14px;font-weight:600;margin-top:3px;">Sleep: ${e.quality}/5 · Energy: ${e.energy}/5 · ${e.hours} hrs</div>
+<div style="font-size:12.5px;color:#5c6272;margin-top:2px;">Phone before bed: ${e.phoneBed} (${e.bedAct}) · Morning: ${e.phoneMorn}</div>
+</div>
+<div onclick="let en=gE().filter(x=>x.id!==${e.id});sE(en);render();" style="font-size:11px;color:#9aa0af;cursor:pointer;padding:4px 8px;border-radius:4px;">remove</div>
+</div>`;}).join('')}
+</div>
+<button onclick="if(confirm('Delete all entries?')){localStorage.removeItem('${K}');render();}" style="display:block;margin:20px auto 0;padding:8px 16px;font-size:12px;color:#9aa0af;border:1px solid rgba(14,17,23,.09);border-radius:6px;cursor:pointer;background:none;font-family:'Syne',sans-serif;">Clear all</button>`;
+}
+
+function renderPatterns(entries){
+if(entries.length<3)return`<div style="background:#fff;border:1px solid rgba(14,17,23,.09);border-radius:16px;padding:40px 20px;text-align:center;color:#9aa0af;">Log at least 3 mornings to see patterns. You have ${entries.length} so far.</div>`;
+const n=entries.length;
+const avg=(arr,f)=>arr.reduce((s,e)=>s+e[f],0)/arr.length;
+const aQ=avg(entries,'quality'), aE=avg(entries,'energy');
+const pY=entries.filter(e=>e.phoneBed==='Yes'), pN=entries.filter(e=>e.phoneBed==='No');
+const qY=pY.length?avg(pY,'quality'):0, qN=pN.length?avg(pN,'quality'):0;
+const mY=entries.filter(e=>e.phoneMorn==='Yes'), mN=entries.filter(e=>e.phoneMorn==='No');
+const eY=mY.length?avg(mY,'energy'):0, eN=mN.length?avg(mN,'energy'):0;
+const pPct=Math.round((pY.length/n)*100);
+const diff=qN-qY;
+
+let insight='';
+if(diff>0.3&&pY.length>=2&&pN.length>=2)insight=`<strong>Your data shows a pattern:</strong> On nights without your phone before bed, your average sleep quality was ${qN.toFixed(1)}/5 vs ${qY.toFixed(1)}/5 with it. That is a ${diff.toFixed(1)}-point difference — consistent with what Scott et al. found across 11,872 adolescents.`;
+else if(pPct>70)insight=`<strong>You used your phone before bed ${pPct}% of nights.</strong> Try going without it for 3 nights and compare your sleep quality. Research suggests even a 30-minute buffer makes a meaningful difference.`;
+else if(aQ>=3.5)insight=`<strong>Your sleep quality is solid at ${aQ.toFixed(1)}/5.</strong> Keep tracking to see if phone-before-bed nights pull the average down.`;
+else insight=`<strong>Average sleep quality: ${aQ.toFixed(1)}/5.</strong> Keep logging. Most people need 5-7 entries before the phone vs no-phone trend becomes clear.`;
+
+const bar=(label,val,max)=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+<div style="font-size:11px;color:#5c6272;width:90px;text-align:right;flex-shrink:0;">${label}</div>
+<div style="flex:1;height:20px;background:#f1ede4;border-radius:4px;overflow:hidden;"><div style="height:100%;width:${(val/max)*100}%;background:linear-gradient(90deg,#1a1a3e,#2d2d5e);border-radius:4px;min-width:2px;"></div></div>
+<div style="font-family:'DM Mono',monospace;font-size:11px;color:#9aa0af;width:30px;">${val.toFixed(1)}</div>
+</div>`;
+
+return`
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+<div style="background:#e8e4f8;border:1px solid rgba(45,45,94,.1);border-radius:10px;padding:14px 16px;text-align:center;"><div style="font-family:'Lora',serif;font-size:26px;font-weight:700;color:#1a1a3e;">${aQ.toFixed(1)}</div><div style="font-size:11px;color:#5c6272;margin-top:2px;">Avg sleep quality</div></div>
+<div style="background:#e8e4f8;border:1px solid rgba(45,45,94,.1);border-radius:10px;padding:14px 16px;text-align:center;"><div style="font-family:'Lora',serif;font-size:26px;font-weight:700;color:#1a1a3e;">${aE.toFixed(1)}</div><div style="font-size:11px;color:#5c6272;margin-top:2px;">Avg morning energy</div></div>
+<div style="background:#e8e4f8;border:1px solid rgba(45,45,94,.1);border-radius:10px;padding:14px 16px;text-align:center;"><div style="font-family:'Lora',serif;font-size:26px;font-weight:700;color:#1a1a3e;">${pPct}%</div><div style="font-size:11px;color:#5c6272;margin-top:2px;">Nights phone before bed</div></div>
+<div style="background:#e8e4f8;border:1px solid rgba(45,45,94,.1);border-radius:10px;padding:14px 16px;text-align:center;"><div style="font-family:'Lora',serif;font-size:26px;font-weight:700;color:#1a1a3e;">${n}</div><div style="font-size:11px;color:#5c6272;margin-top:2px;">Total check-ins</div></div>
+</div>
+<div style="background:#fdf7ec;border:1px solid rgba(184,137,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#5a4a1a;line-height:1.65;">${insight}</div>
+<div style="background:#fff;border:1px solid rgba(14,17,23,.09);border-radius:16px;padding:24px;margin-bottom:16px;">
+<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;margin-bottom:14px;">Phone before bed vs. sleep quality</div>
+${bar('With phone',qY,5)}${bar('Without phone',qN,5)}
+</div>
+<div style="background:#fff;border:1px solid rgba(14,17,23,.09);border-radius:16px;padding:24px;margin-bottom:16px;">
+<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;margin-bottom:14px;">Morning phone check vs. energy</div>
+${bar('Checked phone',eY,5)}${bar('Did not check',eN,5)}
+</div>
+<div style="background:#fff;border:1px solid rgba(14,17,23,.09);border-radius:16px;padding:24px;">
+<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;margin-bottom:8px;">What to do with this</div>
+<p style="font-size:13.5px;color:#2c3140;line-height:1.7;">Sleep disruption is the most mechanically direct pathway through which social media affects wellbeing. Blue light suppresses melatonin, and scrolling keeps your brain alert when it needs to wind down. This data shows whether that pattern is showing up for you personally. If you see a consistent gap between phone nights and no-phone nights, that is one of the most actionable findings you can get.</p>
+</div>
+<button onclick="if(confirm('Delete all entries?')){localStorage.removeItem('${K}');render();}" style="display:block;margin:20px auto 0;padding:8px 16px;font-size:12px;color:#9aa0af;border:1px solid rgba(14,17,23,.09);border-radius:6px;cursor:pointer;background:none;font-family:'Syne',sans-serif;">Clear all</button>`;
+}
+
+render();
+</script>
+</body>
+</html>
