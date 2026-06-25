@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' rx='72' fill='%23162847'/%3E%3Cpath d='M96 140Q200 108 304 140' stroke='%23b8893a' stroke-width='16' fill='none' stroke-linecap='round'/%3E%3Cpath d='M96 192Q200 160 304 192' stroke='%23fff' stroke-width='16' fill='none' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M96 244Q200 212 304 244' stroke='%23fff' stroke-width='16' fill='none' stroke-linecap='round' opacity='.4'/%3E%3Cpath d='M304 244Q338 256 335 286Q332 316 304 313Q276 310 280 283' stroke='%23b8893a' stroke-width='14' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta property="og:title" content="What's Your Scrolling Type? — MindScroll Health">
+<meta property="og:description" content="Take this 60-second quiz to find out your social media pattern. Based on peer-reviewed research.">
+<title>What's Your Scrolling Type? — MindScroll Health</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0SEWRNQB99"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0SEWRNQB99',{anonymize_ip:true});</script>
+<style>
+:root{--ink:#0e1117;--ink2:#2c3140;--ink3:#5c6272;--ink4:#9aa0af;--paper:#f8f6f1;--white:#fff;--navy:#162847;--navym:#1e3d6e;--navyxl:#edf3fc;--gold:#b8893a;--goldxl:#fdf7ec;--sage:#3d7a5e;--sagel:#dff0e8;--rose:#c44f2a;--rosel:#fef5f4;--border:rgba(14,17,23,.09);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Syne',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;min-height:100dvh;}
+.wrap{max-width:420px;margin:0 auto;padding:20px 16px;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;}
+
+/* Intro */
+.intro{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 0;}
+.intro-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--navym);background:var(--navyxl);border:1px solid rgba(30,61,110,.15);padding:5px 12px;border-radius:100px;margin-bottom:24px;}
+.intro h1{font-family:'Lora',serif;font-size:32px;font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px;}
+.intro h1 em{font-style:italic;color:var(--navym);}
+.intro p{font-size:15px;color:var(--ink3);line-height:1.65;margin-bottom:32px;max-width:320px;}
+.start-btn{
+  padding:16px 48px;border-radius:12px;border:none;cursor:pointer;
+  background:var(--navy);color:#fff;font-family:'Syne',sans-serif;
+  font-size:16px;font-weight:700;letter-spacing:-.01em;
+  transition:all .2s;box-shadow:0 4px 20px rgba(22,40,71,.3);
+}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(22,40,71,.4);}
+.intro-note{font-size:11px;color:var(--ink4);margin-top:16px;}
+
+/* Progress */
+.progress{height:4px;background:var(--paper);border-radius:2px;margin-bottom:24px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--navym),var(--gold));border-radius:2px;transition:width .4s ease;}
+
+/* Question */
+.q-card{flex:1;display:flex;flex-direction:column;justify-content:center;animation:fadeUp .35s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink4);letter-spacing:.08em;margin-bottom:12px;}
+.q-text{font-family:'Lora',serif;font-size:22px;font-weight:700;line-height:1.25;color:var(--ink);margin-bottom:28px;}
+.q-options{display:flex;flex-direction:column;gap:10px;}
+.q-opt{
+  padding:16px 18px;border:2px solid var(--border);border-radius:12px;
+  background:var(--white);cursor:pointer;font-size:14px;font-weight:500;
+  color:var(--ink2);text-align:left;line-height:1.45;
+  transition:all .18s;position:relative;overflow:hidden;
+}
+.q-opt:hover{border-color:var(--navym);color:var(--navym);}
+.q-opt:active{transform:scale(.98);}
+.q-opt.picked{border-color:var(--navym);background:var(--navyxl);color:var(--navym);}
+
+/* Result */
+.result{flex:1;display:flex;flex-direction:column;animation:fadeUp .5s ease;}
+.result-card{
+  background:var(--navy);border-radius:24px;padding:36px 28px;text-align:center;
+  position:relative;overflow:hidden;margin-bottom:20px;
+}
+.result-glow{position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(184,137,58,.2),transparent 70%);}
+.result-glow2{position:absolute;bottom:-40px;left:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(30,61,110,.5),transparent 70%);}
+.result-inner{position:relative;z-index:1;}
+.result-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.result-type{font-family:'Lora',serif;font-size:28px;font-weight:700;color:#fff;line-height:1.15;margin-bottom:8px;}
+.result-emoji{font-size:48px;margin-bottom:16px;display:block;}
+.result-desc{font-size:14px;color:rgba(255,255,255,.65);line-height:1.65;max-width:320px;margin:0 auto;}
+.result-tag{
+  display:inline-block;margin-top:20px;
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;
+  color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);padding:6px 14px;border-radius:100px;
+}
+
+.result-breakdown{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;}
+.result-breakdown h3{font-family:'Lora',serif;font-size:16px;font-weight:700;margin-bottom:14px;}
+.score-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.score-label{font-size:12px;color:var(--ink3);width:90px;text-align:right;flex-shrink:0;}
+.score-track{flex:1;height:8px;background:var(--paper);border-radius:4px;overflow:hidden;}
+.score-fill{height:100%;border-radius:4px;transition:width .8s ease;}
+.score-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink4);width:28px;}
+
+.share-section{text-align:center;padding:20px 0;}
+.share-section p{font-size:13px;color:var(--ink3);margin-bottom:12px;}
+.share-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;border-radius:10px;border:2px solid var(--navym);
+  background:var(--navyxl);color:var(--navym);font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;
+}
+.share-btn:hover{background:var(--navym);color:#fff;}
+
+.cta-strip{
+  background:var(--goldxl);border:1px solid rgba(184,137,58,.2);border-radius:12px;
+  padding:18px 20px;text-align:center;margin-bottom:16px;
+}
+.cta-strip p{font-size:13px;color:#5a4a1a;line-height:1.6;margin-bottom:10px;}
+.cta-link{font-size:13px;font-weight:700;color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
+
+.foot{text-align:center;padding:20px 0;font-size:11px;color:var(--ink4);}
+.foot a{color:var(--navym);text-decoration:none;}
+
+.hidden{display:none !important;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- INTRO SCREEN -->
+<div class="intro" id="screen-intro">
+  <div class="intro-badge">60-second quiz</div>
+  <h1>What's your<br><em>scrolling type?</em></h1>
+  <p>8 questions. Based on peer-reviewed research on how different usage patterns affect your brain differently.</p>
+  <button class="start-btn" onclick="startQuiz()">Find Out</button>
+  <div class="intro-note">No data stored. Nothing leaves your phone.</div>
+</div>
+
+<!-- QUESTION SCREEN -->
+<div class="hidden" id="screen-quiz">
+  <div class="progress"><div class="progress-fill" id="progress"></div></div>
+  <div class="q-card" id="q-card"></div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div class="hidden" id="screen-result"></div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    q: "You open Instagram. What do you do first?",
+    opts: [
+      { text: "Start scrolling the feed without a specific goal", scores: [2,0,1,0] },
+      { text: "Check DMs and reply to messages", scores: [0,2,0,0] },
+      { text: "Go to a specific person's profile to check their posts", scores: [1,0,0,2] },
+      { text: "Post something or check how your last post did", scores: [0,1,0,1] }
+    ]
+  },
+  {
+    q: "How often do you find yourself scrolling longer than you planned?",
+    opts: [
+      { text: "Almost every time I open an app", scores: [2,0,2,0] },
+      { text: "Pretty often — I lose track of time", scores: [1,0,1,0] },
+      { text: "Sometimes, but I usually catch myself", scores: [0,1,0,0] },
+      { text: "Rarely — I'm usually intentional about it", scores: [0,2,0,0] }
+    ]
+  },
+  {
+    q: "After a 30-minute scroll session, how do you usually feel?",
+    opts: [
+      { text: "Worse than before — drained or anxious", scores: [2,0,1,1] },
+      { text: "About the same — kind of numb", scores: [1,0,1,0] },
+      { text: "Fine — I enjoyed what I saw", scores: [0,1,0,0] },
+      { text: "Better — I connected with people or learned something", scores: [0,2,0,0] }
+    ]
+  },
+  {
+    q: "When you see someone's highlight reel (vacation, achievement, new relationship), what's your first reaction?",
+    opts: [
+      { text: "I compare it to my own life — and usually feel worse", scores: [1,0,0,2] },
+      { text: "I feel a pang but move on quickly", scores: [0,0,0,1] },
+      { text: "I'm genuinely happy for them", scores: [0,1,0,0] },
+      { text: "I don't really notice — I scroll past most of that", scores: [1,0,0,0] }
+    ]
+  },
+  {
+    q: "What time do you typically last check your phone before sleep?",
+    opts: [
+      { text: "It's literally the last thing I do before closing my eyes", scores: [1,0,2,0] },
+      { text: "Within 30 minutes of trying to sleep", scores: [0,0,1,0] },
+      { text: "I usually stop 30+ minutes before bed", scores: [0,1,0,0] },
+      { text: "I charge my phone outside my bedroom", scores: [0,2,0,0] }
+    ]
+  },
+  {
+    q: "How do you mainly use social media?",
+    opts: [
+      { text: "Watching stories, reels, and posts without interacting", scores: [2,0,0,0] },
+      { text: "Messaging friends and commenting on posts", scores: [0,2,0,0] },
+      { text: "Creating and sharing my own content", scores: [0,2,0,0] },
+      { text: "A mix — depends on my mood", scores: [1,1,0,0] }
+    ]
+  },
+  {
+    q: "When you feel lonely or bored, what do you reach for?",
+    opts: [
+      { text: "Social media — it's automatic", scores: [2,0,2,0] },
+      { text: "I text or call someone specific", scores: [0,2,0,0] },
+      { text: "Something non-digital — music, walking, reading", scores: [0,2,0,0] },
+      { text: "I scroll but I know it won't help", scores: [2,0,1,1] }
+    ]
+  },
+  {
+    q: "If you deleted all social media for a week, how would you feel?",
+    opts: [
+      { text: "Anxious — I'd be missing out on everything", scores: [1,0,2,0] },
+      { text: "Uncomfortable at first but probably fine after a day or two", scores: [0,1,1,0] },
+      { text: "Relieved, honestly", scores: [1,0,0,1] },
+      { text: "Fine — I've done it before and it was good", scores: [0,2,0,0] }
+    ]
+  }
+];
+
+// Domains: [passive, active, compulsive, comparison]
+const types = [
+  {
+    name: "The Ghost Scroller",
+    emoji: "👻",
+    desc: "You consume a lot of content without interacting much. You're in the audience, not on stage. Research suggests this passive pattern is more strongly associated with mood decline than active engagement — not because scrolling is inherently bad, but because it tends to trigger comparison without connection.",
+    tip: "Try the 3-Interaction Rule: before you scroll past anything, interact with at least 3 posts (comment, message, share). This shifts your session from passive to active.",
+    color: "#c44f2a",
+    dominant: "passive"
+  },
+  {
+    name: "The Connector",
+    emoji: "💬",
+    desc: "You use social media primarily to talk to people — messaging, commenting, sharing. This is the usage pattern that research associates with stable or positive wellbeing outcomes. Active engagement creates reciprocity and genuine connection, which is what social platforms were originally designed for.",
+    tip: "Your pattern is working for you. The main thing to watch is whether your active use starts shifting toward passive scrolling when you're tired or stressed — that's when the pattern can drift.",
+    color: "#3d7a5e",
+    dominant: "active"
+  },
+  {
+    name: "The Compulsive Checker",
+    emoji: "🔄",
+    desc: "You open apps reflexively — when you're bored, anxious, or just have a free moment. The issue isn't what you're doing on the app, it's that opening it has become automatic rather than intentional. This pattern is strongly tied to variable reward design (the same mechanism behind slot machines).",
+    tip: "Move your most-used social apps off your home screen into a folder on the second page. Adding even one extra tap creates a decision point that interrupts the automatic habit loop.",
+    color: "#b8893a",
+    dominant: "compulsive"
+  },
+  {
+    name: "The Comparer",
+    emoji: "📊",
+    desc: "You notice other people's lives — and measure yours against them. Social comparison is natural and universal, but platforms amplify it by curating highlight reels. Research shows that people with higher comparison orientation experience larger negative effects from the same amount of social media use.",
+    tip: "When you notice yourself comparing, ask: 'Am I seeing their full life or their best 5%?' Unfollowing or muting accounts that consistently trigger comparison is one of the most evidence-backed interventions.",
+    color: "#1e3d6e",
+    dominant: "comparison"
+  }
+];
+
+let current = 0;
+let scores = [0, 0, 0, 0]; // passive, active, compulsive, comparison
+
+function startQuiz() {
+  document.getElementById('screen-intro').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  renderQ();
+  if (typeof gtag === 'function') gtag('event', 'quiz_started');
+}
+
+function renderQ() {
+  const q = questions[current];
+  const pct = ((current) / questions.length) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+  const card = document.getElementById('q-card');
+  card.innerHTML = `
+    <div class="q-num">QUESTION ${current + 1} OF ${questions.length}</div>
+    <div class="q-text">${q.q}</div>
+    <div class="q-options">
+      ${q.opts.map((o, i) => `<div class="q-opt" onclick="answer(${i})">${o.text}</div>`).join('')}
+    </div>
+  `;
+  // Re-trigger animation
+  card.style.animation = 'none';
+  void card.offsetWidth;
+  card.style.animation = '';
+}
+
+function answer(i) {
+  const opts = document.querySelectorAll('.q-opt');
+  opts[i].classList.add('picked');
+  const s = questions[current].opts[i].scores;
+  scores = scores.map((v, j) => v + s[j]);
+
+  setTimeout(() => {
+    current++;
+    if (current < questions.length) {
+      renderQ();
+    } else {
+      showResult();
+    }
+  }, 300);
+}
+
+function showResult() {
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('progress').style.width = '100%';
+
+  // Find dominant type
+  const max = Math.max(...scores);
+  const typeIndex = scores.indexOf(max);
+  const type = types[typeIndex];
+
+  // Normalize scores for display
+  const total = Math.max(scores.reduce((a, b) => a + b, 0), 1);
+  const pcts = scores.map(s => Math.round((s / total) * 100));
+
+  const labels = ['Passive', 'Active', 'Compulsive', 'Comparison'];
+  const colors = ['#c44f2a', '#3d7a5e', '#b8893a', '#1e3d6e'];
+
+  const el = document.getElementById('screen-result');
+  el.classList.remove('hidden');
+  el.innerHTML = `
+    <div style="height:20px;"></div>
+    <div class="result-card">
+      <div class="result-glow"></div>
+      <div class="result-glow2"></div>
+      <div class="result-inner">
+        <div class="result-label">Your scrolling type</div>
+        <span class="result-emoji">${type.emoji}</span>
+        <div class="result-type">${type.name}</div>
+        <div class="result-desc">${type.desc}</div>
+        <div class="result-tag">@mindscrollhealth</div>
+      </div>
+    </div>
+
+    <div class="result-breakdown">
+      <h3>Your pattern breakdown</h3>
+      ${labels.map((l, i) => `
+        <div class="score-row">
+          <div class="score-label">${l}</div>
+          <div class="score-track"><div class="score-fill" style="width:${pcts[i]}%;background:${colors[i]};"></div></div>
+          <div class="score-val">${pcts[i]}%</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="result-breakdown">
+      <h3>What to try</h3>
+      <p style="font-size:13.5px;color:var(--ink2);line-height:1.7;">${type.tip}</p>
+    </div>
+
+    <div class="share-section">
+      <p>Screenshot your result and share it to your story</p>
+      <button class="share-btn" onclick="shareResult()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share Result
+      </button>
+    </div>
+
+    <div class="cta-strip">
+      <p>Want a deeper breakdown? Take the full assessment — it's free and takes 4 minutes.</p>
+      <a class="cta-link" href="assess.html">Take the Full Assessment →</a>
+    </div>
+
+    <div style="text-align:center;margin-bottom:16px;">
+      <button onclick="location.reload()" style="font-size:13px;color:var(--ink4);background:none;border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;">Take it again</button>
+    </div>
+
+    <div class="foot">
+      <a href="index.html">MindScroll Health</a> · <a href="https://www.instagram.com/mindscrollhealth/">@mindscrollhealth</a><br>
+      Based on Verduyn et al. (2015), Orben & Przybylski (2019), and others. No data stored.
+    </div>
+  `;
+
+  // Animate score bars after render
+  setTimeout(() => {
+    document.querySelectorAll('.score-fill').forEach(bar => {
+      bar.style.width = bar.style.width; // trigger transition
+    });
+  }, 100);
+
+  if (typeof gtag === 'function') gtag('event', 'quiz_completed', { result: type.name });
+}
+
+function shareResult() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'My Scrolling Type — MindScroll Health',
+      text: 'I just found out my scrolling type. Take the quiz:',
+      url: window.location.href
+    }).catch(() => {});
+  } else {
+    // Fallback: copy URL
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = document.querySelector('.share-btn');
+      btn.textContent = 'Link copied!';
+      setTimeout(() => { btn.innerHTML = 'Share Result'; }, 2000);
+    });
+  }
+}
+</script>
+</body>
+</html>
