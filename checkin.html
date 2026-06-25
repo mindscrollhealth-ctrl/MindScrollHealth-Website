@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' rx='72' fill='%23162847'/%3E%3Cpath d='M96 140Q200 108 304 140' stroke='%23b8893a' stroke-width='16' fill='none' stroke-linecap='round'/%3E%3Cpath d='M96 192Q200 160 304 192' stroke='%23fff' stroke-width='16' fill='none' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M96 244Q200 212 304 244' stroke='%23fff' stroke-width='16' fill='none' stroke-linecap='round' opacity='.4'/%3E%3Cpath d='M304 244Q338 256 335 286Q332 316 304 313Q276 310 280 283' stroke='%23b8893a' stroke-width='14' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>Weekly Check-In — MindScroll Health Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0SEWRNQB99"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0SEWRNQB99',{anonymize_ip:true});</script>
+<style>
+:root{--ink:#0e1117;--ink2:#2c3140;--ink3:#5c6272;--ink4:#9aa0af;--paper:#f8f6f1;--paper2:#f1ede4;--white:#fff;--navy:#162847;--navym:#1e3d6e;--navyxl:#edf3fc;--gold:#b8893a;--goldxl:#fdf7ec;--sage:#3d7a5e;--sagel:#dff0e8;--border:rgba(14,17,23,.09);--borderm:rgba(14,17,23,.14);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Syne',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;}
+a{text-decoration:none;color:inherit;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(248,246,241,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Lora',serif;font-size:16px;font-weight:700;color:var(--ink);}
+.nav-logo span{color:var(--navym);}
+.nav-back{font-size:12px;font-weight:500;color:var(--ink3);}
+
+.shell{max-width:520px;margin:0 auto;padding:84px 16px 60px;}
+
+.header{text-align:center;margin-bottom:28px;}
+.header h1{font-family:'Lora',serif;font-size:24px;font-weight:700;margin-bottom:6px;}
+.header p{font-size:14px;color:var(--ink3);}
+
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.card h2{font-family:'Lora',serif;font-size:16px;font-weight:700;margin-bottom:14px;}
+
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:5px;}
+.field input,.field select,.field textarea{
+  width:100%;padding:10px 12px;border:1.5px solid var(--borderm);border-radius:8px;
+  font-family:'Syne',sans-serif;font-size:14px;color:var(--ink);background:var(--paper);outline:none;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navym);}
+.field select{appearance:none;cursor:pointer;}
+.field textarea{height:80px;resize:vertical;line-height:1.5;}
+
+.scale{display:flex;gap:6px;margin-bottom:14px;}
+.scale-btn{
+  flex:1;height:42px;border:1.5px solid var(--borderm);border-radius:8px;
+  font-size:13px;font-weight:600;color:var(--ink3);background:var(--white);
+  cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s;
+}
+.scale-btn:hover{border-color:var(--navym);color:var(--navym);}
+.scale-btn.sel{background:var(--navym);border-color:var(--navym);color:#fff;}
+
+.submit{
+  width:100%;padding:13px;border-radius:9px;border:none;
+  background:var(--navy);color:#fff;font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:700;cursor:pointer;
+}
+.submit:hover{background:var(--navym);}
+
+.success{display:none;text-align:center;padding:40px 20px;background:var(--sagel);border:1px solid rgba(61,122,94,.2);border-radius:14px;}
+.success h2{font-family:'Lora',serif;font-size:20px;font-weight:700;color:var(--sage);margin-bottom:8px;}
+.success p{font-size:14px;color:#2a5a45;line-height:1.6;}
+
+.foot{text-align:center;padding:24px 16px;font-size:11px;color:var(--ink4);border-top:1px solid var(--border);margin-top:24px;}
+.foot a{color:var(--navym);}
+
+@media(max-width:480px){.card{padding:20px 16px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">Mind<span>Scroll</span> Health</a>
+  <a class="nav-back" href="index.html">Back to site</a>
+</nav>
+
+<div class="shell">
+  <div class="header">
+    <h1>Weekly Check-In</h1>
+    <p>Takes about 90 seconds. Helps us understand what's working.</p>
+  </div>
+
+  <div class="card" id="checkin-form">
+    <form action="https://formsubmit.co/mindscrollhealth@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Weekly Check-In — MindScroll Study">
+      <input type="hidden" name="_next" id="checkin-redirect" value="">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="Date" id="checkin-date" value="">
+
+      <div class="field">
+        <label>Your study ID</label>
+        <input type="text" name="Study ID" required placeholder="e.g. MS-4827" style="font-family:'DM Mono',monospace;letter-spacing:.04em;">
+      </div>
+
+      <div class="field">
+        <label>Which week is this?</label>
+        <select name="Week" required>
+          <option value="">Select</option>
+          <option>Week 1</option>
+          <option>Week 2</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Did you try any of the strategies from your assessment results?</label>
+        <select name="Tried strategies" required>
+          <option value="">Select</option>
+          <option>Yes, consistently</option>
+          <option>Yes, a few times</option>
+          <option>Tried once or twice</option>
+          <option>Not yet</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Which strategies did you try? (optional)</label>
+        <textarea name="Strategies used" placeholder="e.g. reduced scrolling before bed, started using the tracker, tried the 3-interaction rule..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Have you noticed any changes in your patterns or mood this week?</label>
+        <select name="Noticed changes" required>
+          <option value="">Select</option>
+          <option>Yes, positive changes</option>
+          <option>Some small changes</option>
+          <option>Not sure yet</option>
+          <option>No noticeable changes</option>
+          <option>Things got worse</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Are you using any of the MindScroll tracking tools?</label>
+        <select name="Using tools" required>
+          <option value="">Select</option>
+          <option>Usage tracker</option>
+          <option>Sleep check-in</option>
+          <option>Both</option>
+          <option>Neither</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Anything you want us to know? (optional)</label>
+        <textarea name="Notes" placeholder="What's working, what isn't, what surprised you, anything at all." style="height:60px;"></textarea>
+      </div>
+
+      <button type="submit" class="submit">Submit Check-In</button>
+    </form>
+  </div>
+
+  <div class="success" id="checkin-success">
+    <h2>Check-in received.</h2>
+    <p>Thanks for taking the time. We'll send the next step when it's time — either the Week 2 check-in or the final assessment retake.</p>
+    <a href="index.html" style="display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:#3d7a5e;text-decoration:underline;text-underline-offset:3px;">Back to MindScroll Health</a>
+  </div>
+</div>
+
+<div class="foot">
+  <a href="index.html">MindScroll Health</a> · <a href="mailto:mindscrollhealth@gmail.com">mindscrollhealth@gmail.com</a>
+</div>
+
+<script>
+document.getElementById('checkin-redirect').value = window.location.origin + '/checkin.html?done=true';
+document.getElementById('checkin-date').value = new Date().toISOString().split('T')[0];
+
+if (window.location.search.includes('done=true')) {
+  window.scrollTo({top: 0, behavior: 'instant'});
+  document.getElementById('checkin-form').style.display = 'none';
+  document.getElementById('checkin-success').style.display = 'block';
+  window.history.replaceState({}, '', window.location.pathname);
+}
+</script>
+</body>
+</html>
