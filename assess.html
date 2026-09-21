@@ -444,7 +444,6 @@ input[type=range].mood-slider::-webkit-slider-thumb:hover{transform:scale(1.15);
  <div class="sel-cards">
 
   <div class="sel-card c1" onclick="begin('pva')" tabindex="0" onkeydown="if(event.key==='Enter')begin('pva')">
-  <div class="sel-icon si1">📊</div>
   <div class="sel-body">
    <div class="sel-tag">Assessment 01 · 13 questions · ~4 min</div>
    <div class="sel-title">Passive vs. Active Use</div>
@@ -454,7 +453,6 @@ input[type=range].mood-slider::-webkit-slider-thumb:hover{transform:scale(1.15);
   </div>
 
   <div class="sel-card c2" onclick="begin('general')" tabindex="0" onkeydown="if(event.key==='Enter')begin('general')">
-  <div class="sel-icon si2">🔍</div>
   <div class="sel-body">
    <div class="sel-tag">Assessment 02 · 14 questions · ~5 min</div>
    <div class="sel-title">General Wellbeing Assessment</div>
@@ -466,8 +464,8 @@ input[type=range].mood-slider::-webkit-slider-thumb:hover{transform:scale(1.15);
   <div class="sel-card c3" onclick="begin('postuse')" tabindex="0" onkeydown="if(event.key==='Enter')begin('postuse')">
   <div class="sel-body">
    <div class="sel-tag">Assessment 03 · 2 phases · ~3 min</div>
-   <div class="sel-title">Post-Use Effects Check-In</div>
-   <div class="sel-desc">Rate your mood before you open social media, then again after you're done. One of the least-measured things in the research . use it any time, as many times as you want.</div>
+   <div class="sel-title">Post-Use Effects Check In</div>
+   <div class="sel-desc">Rate your mood before you open social media, then again after you're done. One of the least measured things in the research . use it any time, as many times as you want.</div>
   </div>
   <svg class="sel-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </div>
@@ -1090,22 +1088,22 @@ function generalResults(r){
  };
 
  const doms={
- sleep:{label:'🌙 Sleep Disruption',score:sleep,
+ sleep:{label:'Sleep Disruption',score:sleep,
   summary:'Your responses suggest social media is most significantly affecting your sleep . either by keeping you on your phone close to bedtime, by being the first thing you reach for in the morning, or both.',
   why:'Screens suppress melatonin production, which pushes your sleep cycle back and reduces sleep quality even when you do fall asleep. On top of the light issue, processing social content . notifications, comparisons, emotionally activating posts . keeps your nervous system engaged when it needs to be winding down. Scott et al. (BMJ Open) found social media near bedtime was consistently linked to shorter sleep and higher daytime fatigue in adolescents. When you use your phone matters more than how long.',
   strats:['<strong>30-minute buffer before sleep:</strong> Set a specific time to put your phone down, not an intention, an actual time. Even 30 minutes makes a measurable difference in melatonin levels and how alert your brain is when you\'re trying to fall asleep.','<strong>Charge it outside your bedroom:</strong> This is the most consistently evidence-supported sleep change researchers recommend. If it\'s not in the room, you\'re not going to check it at 2am. Use a separate alarm clock.','<strong>Delay the morning check:</strong> Your brain is in a neurologically distinct state for the first 20–30 minutes after waking. Opening social media in that window, and getting hit with comparison content right away . has been shown to negatively set your mood for the whole morning.','<strong>Replace the bedtime scroll with something else:</strong> Passive scrolling before sleep feels relaxing but isn\'t. Find one thing that relaxes you . reading actual pages, a podcast, whatever works, and use that instead.']
  },
- comparison:{label:'🪞 Social Comparison',score:comparison,
+ comparison:{label:'Social Comparison',score:comparison,
   summary:'Social comparison is your main area of concern based on your responses. You\'re regularly measuring your appearance, lifestyle, or life circumstances against what you see other people posting.',
   why:'Social Comparison Theory explains that humans naturally evaluate themselves relative to others . it\'s deeply wired in. Social media makes this uniquely difficult because you\'re comparing your full, unfiltered experience of your own life against other people\'s curated highlight reels. Nobody posts their boring Tuesday. Research by Nesi and Prinstein found appearance-based comparison on social media specifically correlates with depressive symptoms in adolescents, with stronger effects around metrics like likes and comments.',
   strats:['<strong>Audit your feed:</strong> Go through who you follow and ask honestly whether each account makes you feel better or worse about your own life. Mute anyone who consistently lands in the second category. This takes 15 minutes and it works.','<strong>Name the comparison when it happens:</strong> When you notice a comparison thought . "why don\'t I look like that," "their life is so much better", just say "comparing" in your head. Research on cognitive defusion shows naming a thought weakens its emotional pull.','<strong>Post and then wait:</strong> After posting something, deliberately don\'t check for likes or comments for at least 2 hours. The anxiety of waiting is a conditioned response and it weakens when you stop feeding it.','<strong>Seek content from people you know:</strong> Accounts from people you have real relationships with, or community-based content, tend to trigger less harmful comparison than aspirational accounts designed to make you feel like you\'re missing out.']
  },
- compulsive:{label:'📱 Compulsive & Heavy Use',score:compulsive,
+ compulsive:{label:'Compulsive & Heavy Use',score:compulsive,
   summary:'Heavy and compulsive use is your main pattern . spending a lot of time on social media, continuing to scroll when you\'re tired or unfocused, and finding it hard to relax without your phone.',
   why:'Social media platforms use variable ratio reinforcement. The same mechanism that makes gambling hard to stop. You never know when the next scroll will deliver something good, so you keep going. Research by Montag et al. found it\'s the unpredictability of the reward, not the reward itself, that drives the compulsive pattern. Adolescent brains are particularly susceptible because reward systems develop before cognitive control systems do.',
   strats:['<strong>Set a stop time instead of a duration:</strong> "I\'ll stop at 9pm" works better than "I\'ll only use it for an hour." Time-of-day anchors are more effective stopping cues because you\'re not tracking elapsed time while you\'re engaged.','<strong>Add friction:</strong> Log out after every session. Move apps off your home screen so you have to search for them. Small obstacles consistently reduce impulsive opening without requiring willpower.','<strong>The 10-minute urge delay:</strong> When you feel the urge to check, set a 10-minute timer and do anything else. Most urges fade within that window without reinforcement.','<strong>Figure out your trigger situations:</strong> Compulsive use almost always happens in specific contexts . boredom, transitions, waiting. Identify your three biggest triggers and plan one specific alternative for each one.']
  },
- functional:{label:'📚 Academic & Emotional Impact',score:functional,
+ functional:{label:'Academic & Emotional Impact',score:functional,
   summary:'Your responses suggest social media is most noticeably affecting your academic focus and emotional state . pulling you away from schoolwork and contributing to anxiety or feeling overwhelmed.',
   why:'Social media affects academic performance two ways: it directly displaces time that could go to studying or sleep, and it fragments attention even in small doses. Research by Gloria Mark at UC Irvine found it takes an average of 23 minutes to fully recover focus after an interruption. For someone checking their phone frequently during homework, the attention cost is far higher than the actual minutes spent on it.',
   strats:['<strong>Phone in a different room during work:</strong> Not face-down on your desk, not on silent . another room. Research shows that having your phone visible on your desk reduces available cognitive capacity even when you\'re not using it.','<strong>Schedule social media time:</strong> Instead of trying to resist it during work, designate specific times for it after you finish a block of work. Converting it from something you\'re denying yourself to something you\'re scheduling is psychologically much easier.','<strong>Sit with the anxiety for 5 minutes before reaching for your phone:</strong> When anxiety spikes, the instinct is to reach for your phone for distraction. That works short-term but maintains the anxiety pattern long-term. Waiting 5 minutes builds genuine capacity to regulate without the phone.','<strong>End-of-day check-in:</strong> Two minutes each evening asking whether social media helped or hurt your focus and mood today. Two weeks of this produces more self-awareness about your patterns than most other things you could do.']
@@ -1131,11 +1129,11 @@ function generalResults(r){
  else{readyHtml=`<div class="alert al-neutral"><strong>No pressure.</strong> ${readyContent['Not right now']}</div>`;}
 
  const flags=[];
- if(raw.q2>=4) flags.push('📱 <strong>Nighttime phone use:</strong> You frequently use social media within 30 minutes of sleep. Research consistently identifies this as the highest-impact intervention point for sleep quality.');
- if(raw.q3>=4) flags.push('☀️ <strong>Morning phone use:</strong> Checking social media immediately after waking sets the emotional tone for your morning during a neurologically sensitive window. A 20-minute buffer is one of the simplest changes you can make.');
- if(raw.q4>=4) flags.push('⏱ <strong>Heavy daily use:</strong> Twenge et al. found that daily use over 3 hours is associated with significantly higher rates of depressive symptoms in adolescents.');
- if(raw.q10>=4) flags.push('😴 <strong>Sleep difficulty:</strong> Your sleep difficulty combined with your social media patterns is a well-documented combination. Sleep disruption is the most mechanically direct pathway through which social media causes harm.');
- if(raw.q12>=4) flags.push('📉 <strong>Mood impact after use:</strong> When post-use mood is consistently negative, the research suggests the pattern of use, not total time . is almost always the main driver.');
+ if(raw.q2>=4) flags.push('<strong>Nighttime phone use:</strong> You frequently use social media within 30 minutes of sleep. Research consistently identifies this as the highest-impact intervention point for sleep quality.');
+ if(raw.q3>=4) flags.push('<strong>Morning phone use:</strong> Checking social media immediately after waking sets the emotional tone for your morning during a neurologically sensitive window. A 20-minute buffer is one of the simplest changes you can make.');
+ if(raw.q4>=4) flags.push('<strong>Heavy daily use:</strong> Twenge et al. found that daily use over 3 hours is associated with significantly higher rates of depressive symptoms in adolescents.');
+ if(raw.q10>=4) flags.push('<strong>Sleep difficulty:</strong> Your sleep difficulty combined with your social media patterns is a well-documented combination. Sleep disruption is the most mechanically direct pathway through which social media causes harm.');
+ if(raw.q12>=4) flags.push('<strong>Mood impact after use:</strong> When post-use mood is consistently negative, the research suggests the pattern of use, not total time . is almost always the main driver.');
 
  return `<div>
  <div class="res-header">
@@ -1144,10 +1142,10 @@ function generalResults(r){
   <div class="res-title">Primary Area: ${pd.label}</div>
   <div class="res-sub">${tierMsg}</div>
   <div class="chip-grid">
-   ${chip('🌙 Sleep',sleep,5,fc(sleep,5))}
-   ${chip('🪞 Comparison',comparison,5,fc(comparison,5))}
-   ${chip('📱 Compulsive',compulsive,5,fc(compulsive,5))}
-   ${chip('📚 Academic',functional,5,fc(functional,5))}
+   ${chip('Sleep',sleep,5,fc(sleep,5))}
+   ${chip('Comparison',comparison,5,fc(comparison,5))}
+   ${chip('Compulsive',compulsive,5,fc(compulsive,5))}
+   ${chip('Academic',functional,5,fc(functional,5))}
   </div>
   </div>
  </div>
